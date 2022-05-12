@@ -153,6 +153,9 @@ class VerificationFailure implements Exception {
 /// Thrown during the logout process if a failure occurs.
 class LogOutFailure implements Exception {}
 
+/// Thrown during the get current user process if a failure occurs.
+class CurrentUserFailure implements Exception {}
+
 enum AuthFlowStatus { login, signUp, verification, session }
 
 /// AuthState represents the current authentication state
@@ -258,13 +261,11 @@ class AuthenticationRepository {
   /// Throws a [VerificationFailure] if an exception occurs.
   Future<void> verifyCode(String verificationCode) async {
     try {
-      // 2
       final result = await Amplify.Auth.confirmSignUp(
         username: _credentials.username,
         confirmationCode: verificationCode,
       );
 
-      // 3
       if (result.isSignUpComplete) {
         final loginCredentials = LoginCredentials(
           username: _credentials.username,
@@ -300,15 +301,31 @@ class AuthenticationRepository {
     }
   }
 
+  Future<User> user() async {
+    try {
+      final authUser = await Amplify.Auth.getCurrentUser();
+      final user = User(
+        id: authUser.userId,
+      );
+      return user;
+    } catch (_) {
+      throw CurrentUserFailure();
+    }
+  }
+
   Future<void> _checkAuthStatus() async {
     try {
-      await Amplify.Auth.fetchAuthSession();
+      final result = await Amplify.Auth.fetchAuthSession();
 
-      final state = AuthState(authFlowStatus: AuthFlowStatus.session);
-      _authStateController.add(state);
+      if (result.isSignedIn) {
+        final state = AuthState(authFlowStatus: AuthFlowStatus.session);
+        _authStateController.add(state);
+        return;
+      }
     } catch (_) {
-      final state = AuthState(authFlowStatus: AuthFlowStatus.login);
-      _authStateController.add(state);
+      print('Check auth state failure');
     }
+    final state = AuthState(authFlowStatus: AuthFlowStatus.login);
+    _authStateController.add(state);
   }
 }
