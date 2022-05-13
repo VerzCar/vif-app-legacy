@@ -1,7 +1,7 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
-import 'package:vote_your_face/login/login.dart';
+import 'package:vote_your_face/presentation/login/login.dart';
 import 'package:formz/formz.dart';
 
 part 'login_event.dart';

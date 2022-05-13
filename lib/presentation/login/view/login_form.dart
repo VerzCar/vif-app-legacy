@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vote_your_face/login/login.dart';
+import 'package:vote_your_face/presentation/login/login.dart';
 import 'package:formz/formz.dart';
 
 class LoginForm extends StatelessWidget {
