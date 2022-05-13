@@ -313,6 +313,8 @@ class AuthenticationRepository {
     }
   }
 
+  void dispose() => _authStateController.close();
+
   Future<void> _checkAuthStatus() async {
     try {
       final result = await Amplify.Auth.fetchAuthSession();

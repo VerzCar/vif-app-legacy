@@ -14,3 +14,23 @@ A few resources to get you started if this is your first Flutter project:
 For help getting started with Flutter, view our
 [online documentation](https://flutter.dev/docs), which offers tutorials,
 samples, guidance on mobile development, and a full API reference.
+
+## Configure Amplify
+
+```cd path/to/your/project```
+
+``amplify init``
+
+Für iOS öffnen Sie das Podfile (ios > Podfile) und aktualisieren Sie die Plattform auf 11.0 oder höher:
+
+``platform :ios, '11.0'``
+
+### Add Amplify Auth
+
+``amplify add auth``
+
+Wie aus der obigen Ausgabe hervorgeht, wurde die Ressource nur lokal hinzugefügt. 
+Um unser Backend mit den Änderungen, die wir lokal vorgenommen haben, zu konfigurieren, müssen wir diesen Befehl ausführen:
+
+``amplify push``
+
