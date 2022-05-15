@@ -16,6 +16,7 @@ class AuthenticationBloc
         super(const AuthenticationState.unknown()) {
     on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
     on<AuthenticationLogoutRequested>(_onAuthenticationLogoutRequested);
+    on<AuthenticationShowSignUp>(_onAuthenticationShowSignUp);
 
     _authenticationStatusSubscription = _authenticationRepository.status.listen(
       (status) => add(AuthenticationStatusChanged(status)),
@@ -59,6 +60,13 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) {
     _authenticationRepository.logOut();
+  }
+
+  void _onAuthenticationShowSignUp(
+    AuthenticationShowSignUp event,
+    Emitter<AuthenticationState> emit,
+  ) {
+    _authenticationRepository.triggerSignUp();
   }
 
 // Future<User?> _tryGetUser() async {
