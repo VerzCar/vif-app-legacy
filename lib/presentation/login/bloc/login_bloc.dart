@@ -16,6 +16,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     on<LoginUsernameChanged>(_onUsernameChanged);
     on<LoginPasswordChanged>(_onPasswordChanged);
     on<LoginSubmitted>(_onSubmitted);
+    on<ShowSignup>(_onShowSignup);
   }
 
   final AuthenticationRepository _authenticationRepository;
@@ -59,5 +60,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
         emit(state.copyWith(status: FormzStatus.submissionFailure));
       }
     }
+  }
+
+  void _onShowSignup(
+    ShowSignup event,
+    Emitter<LoginState> emit,
+  ) {
+    _authenticationRepository.triggerSignUp();
   }
 }

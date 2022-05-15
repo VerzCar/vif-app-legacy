@@ -19,6 +19,9 @@ class SplashPage extends StatelessWidget {
           case AuthFlowStatus.login:
             context.router.replace(const LoginPageRoute());
             break;
+          case AuthFlowStatus.signUp:
+            context.router.replace(const SignUpPageRoute());
+            break;
           default:
             break;
         }

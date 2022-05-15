@@ -1,4 +1,3 @@
-import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vote_your_face/presentation/login/login.dart';
@@ -9,14 +8,26 @@ class LoginPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loginBloc = sl<LoginBloc>();
     return Scaffold(
       appBar: AppBar(title: const Text('Login')),
-      body: Padding(
-        padding: const EdgeInsets.all(12),
-        child: BlocProvider(
-          create: (context) => sl<LoginBloc>(),
-          child: const LoginForm(),
-        ),
+      body: BlocProvider<LoginBloc>(
+        create: (context) => loginBloc,
+        child: SafeArea(
+            minimum: const EdgeInsets.all(12),
+            child: Stack(children: [
+              const LoginForm(),
+              Container(
+                alignment: Alignment.bottomCenter,
+                child: TextButton(
+                  onPressed: () {
+                    BlocProvider.of<LoginBloc>(context).add(const ShowSignup());
+                    //loginBloc.add(const ShowSignup());
+                  },
+                  child: const Text('Don\'t have an account? Sign up.'),
+                ),
+              )
+            ])),
       ),
     );
   }
