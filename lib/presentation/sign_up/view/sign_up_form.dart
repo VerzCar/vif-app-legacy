@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:vote_your_face/presentation/routes/router.gr.dart';
 import 'package:vote_your_face/presentation/sign_up/cubit/sign_up_cubit.dart';
 
 class SignUpForm extends StatelessWidget {
@@ -10,8 +12,10 @@ class SignUpForm extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) {
-        if (state.status.isSubmissionSuccess) {
-          Navigator.of(context).pop();
+        if (state.status.isSubmissionSuccess && state.signUpComplete) {
+          context.router.replace(const HomePageRoute());
+        } else if (state.status.isSubmissionSuccess && !state.signUpComplete) {
+          context.router.replace(const VerificationPageRoute());
         } else if (state.status.isSubmissionFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()
@@ -50,7 +54,7 @@ class _UsernameInput extends StatelessWidget {
         return TextField(
           key: const Key('signUpForm_usernameInput_textField'),
           onChanged: (username) =>
-              context.read<SignUpCubit>().emailChanged(username),
+              context.read<SignUpCubit>().usernameChanged(username),
           keyboardType: TextInputType.text,
           decoration: InputDecoration(
             labelText: 'username',

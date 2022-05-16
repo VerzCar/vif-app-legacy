@@ -32,8 +32,8 @@ class SignUpCubit extends Cubit<SignUpState> {
       state.copyWith(
         email: email,
         status: Formz.validate([
-          email,
           state.username,
+          email,
           state.password,
           state.confirmedPassword,
         ]),
@@ -52,8 +52,8 @@ class SignUpCubit extends Cubit<SignUpState> {
         password: password,
         confirmedPassword: confirmedPassword,
         status: Formz.validate([
-          state.email,
           state.username,
+          state.email,
           password,
           confirmedPassword,
         ]),
@@ -70,8 +70,8 @@ class SignUpCubit extends Cubit<SignUpState> {
       state.copyWith(
         confirmedPassword: confirmedPassword,
         status: Formz.validate([
-          state.email,
           state.username,
+          state.email,
           state.password,
           confirmedPassword,
         ]),
@@ -83,13 +83,24 @@ class SignUpCubit extends Cubit<SignUpState> {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
+      print(state.username.value);
       final credentials = SignUpCredentials(
         username: state.username.value,
         email: state.email.value,
         password: state.password.value,
       );
 
-      await _authenticationRepository.signUpWithCredentials(credentials);
+      final signUpComplete =
+          await _authenticationRepository.signUpWithCredentials(credentials);
+
+      if (signUpComplete) {
+        emit(state.copyWith(
+          status: FormzStatus.submissionSuccess,
+          signUpComplete: signUpComplete,
+        ));
+        return;
+      }
+
       emit(state.copyWith(status: FormzStatus.submissionSuccess));
     } on SignUpWithEmailAndPasswordFailure catch (e) {
       emit(

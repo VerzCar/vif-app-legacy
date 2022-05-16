@@ -13,14 +13,11 @@ class SplashPage extends StatelessWidget {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         switch (state.status) {
-          case AuthFlowStatus.session:
+          case AuthFlowStatus.authenticated:
             context.router.replace(const HomePageRoute());
             break;
-          case AuthFlowStatus.login:
+          case AuthFlowStatus.unauthenticated:
             context.router.replace(const LoginPageRoute());
-            break;
-          case AuthFlowStatus.signUp:
-            context.router.replace(const SignUpPageRoute());
             break;
           default:
             break;

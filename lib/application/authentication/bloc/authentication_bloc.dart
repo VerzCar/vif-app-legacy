@@ -16,7 +16,6 @@ class AuthenticationBloc
         super(const AuthenticationState.unknown()) {
     on<AuthenticationStatusChanged>(_onAuthenticationStatusChanged);
     on<AuthenticationLogoutRequested>(_onAuthenticationLogoutRequested);
-    on<AuthenticationShowSignUp>(_onAuthenticationShowSignUp);
 
     _authenticationStatusSubscription = _authenticationRepository.status.listen(
       (status) => add(AuthenticationStatusChanged(status)),
@@ -38,18 +37,13 @@ class AuthenticationBloc
     Emitter<AuthenticationState> emit,
   ) async {
     switch (event.status.authFlowStatus) {
-      case AuthFlowStatus.login:
-        return emit(const AuthenticationState.login());
-      case AuthFlowStatus.signUp:
-        return emit(const AuthenticationState.signup());
-      case AuthFlowStatus.verification:
-        return emit(const AuthenticationState.verification());
-      case AuthFlowStatus.session:
-        // final user = await _tryGetUser();
-        const user = null;
+      case AuthFlowStatus.unauthenticated:
+        return emit(const AuthenticationState.unauthenticated());
+      case AuthFlowStatus.authenticated:
+        final user = await _tryGetUser();
         return emit(user != null
-            ? AuthenticationState.session(user)
-            : const AuthenticationState.login());
+            ? AuthenticationState.authenticated(user)
+            : const AuthenticationState.unauthenticated());
       default:
         return emit(const AuthenticationState.unknown());
     }
@@ -62,19 +56,12 @@ class AuthenticationBloc
     _authenticationRepository.logOut();
   }
 
-  void _onAuthenticationShowSignUp(
-    AuthenticationShowSignUp event,
-    Emitter<AuthenticationState> emit,
-  ) {
-    _authenticationRepository.triggerSignUp();
+  Future<User?> _tryGetUser() async {
+    try {
+      final user = await _authenticationRepository.user();
+      return user;
+    } catch (_) {
+      return null;
+    }
   }
-
-// Future<User?> _tryGetUser() async {
-//   try {
-//     final user = await _userRepository.getUser();
-//     return user;
-//   } catch (_) {
-//     return null;
-//   }
-// }
 }

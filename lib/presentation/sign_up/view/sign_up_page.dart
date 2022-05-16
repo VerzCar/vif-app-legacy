@@ -9,10 +9,6 @@ import 'package:auto_route/auto_route.dart';
 class SignUpPage extends StatelessWidget {
   const SignUpPage({Key? key}) : super(key: key);
 
-  static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const SignUpPage());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,6 +27,16 @@ class SignUpPage extends StatelessWidget {
                   context.router.replace(const LoginPageRoute());
                 },
                 child: const Text('Already have an account? Login.'),
+              ),
+            ),
+            const SizedBox(height: 12),
+            Container(
+              alignment: Alignment.bottomCenter,
+              child: TextButton(
+                onPressed: () {
+                  context.router.replace(const VerificationPageRoute());
+                },
+                child: const Text('verify sign up.'),
               ),
             )
           ])),

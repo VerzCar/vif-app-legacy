@@ -20,7 +20,7 @@ class App extends StatelessWidget {
           create: (context) => sl<AuthenticationBloc>()
             ..add(AuthenticationStatusChanged(
               AuthState(
-                authFlowStatus: AuthFlowStatus.login,
+                authFlowStatus: AuthFlowStatus.unknown,
               ),
             )),
         )

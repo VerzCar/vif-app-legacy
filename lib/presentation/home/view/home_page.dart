@@ -5,10 +5,6 @@ import 'package:vote_your_face/application/authentication/authentication.dart';
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
-  static Route route() {
-    return MaterialPageRoute<void>(builder: (_) => const HomePage());
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -28,9 +24,7 @@ class HomePage extends StatelessWidget {
             ElevatedButton(
               child: const Text('Logout'),
               onPressed: () {
-                context
-                    .read<AuthenticationBloc>()
-                    .add(AuthenticationLogoutRequested());
+                context.read<AuthenticationBloc>().add(AuthenticationLogoutRequested());
               },
             ),
           ],

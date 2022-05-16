@@ -156,7 +156,11 @@ class LogOutFailure implements Exception {}
 /// Thrown during the get current user process if a failure occurs.
 class CurrentUserFailure implements Exception {}
 
-enum AuthFlowStatus { login, signUp, verification, session }
+enum AuthFlowStatus {
+  unknown,
+  authenticated,
+  unauthenticated,
+}
 
 /// AuthState represents the current authentication state
 class AuthState {
@@ -173,7 +177,8 @@ class AuthenticationRepository {
   AuthenticationRepository();
 
   final _authStateController = StreamController<AuthState>();
-  late AuthCredentials _credentials;
+  late AuthCredentials _credentials =
+      LoginCredentials(username: '', password: '');
 
   /// Whether or not the current environment is web
   /// Should only be overriden for testing purposes. Otherwise,
@@ -188,41 +193,33 @@ class AuthenticationRepository {
     yield* _authStateController.stream;
   }
 
-  void triggerSignUp() {
-    final state = AuthState(authFlowStatus: AuthFlowStatus.signUp);
-    _authStateController.add(state);
-  }
-
-  void triggerLogin() {
-    final state = AuthState(authFlowStatus: AuthFlowStatus.login);
-    _authStateController.add(state);
-  }
-
   /// Creates a new user with the provided [credentials].
-  ///
+  /// Returns true if verification is needed, otherwise false.
   /// Throws a [SignUpWithEmailAndPasswordFailure] if an exception occurs.
-  Future<void> signUpWithCredentials(SignUpCredentials credentials) async {
+  Future<bool> signUpWithCredentials(SignUpCredentials credentials) async {
     try {
       final userAttributes = {
         CognitoUserAttributeKey.email: credentials.email,
+        CognitoUserAttributeKey.preferredUsername: credentials.username,
       };
 
       final result = await Amplify.Auth.signUp(
-          username: credentials.username,
+          username: credentials.email,
           password: credentials.password,
           options: CognitoSignUpOptions(userAttributes: userAttributes));
 
-      if (result.isSignUpComplete) {
-        final loginCredentials = LoginCredentials(
-          username: credentials.username,
-          password: credentials.password,
-        );
-        await loginWithCredentials(loginCredentials);
-      } else {
-        _credentials = credentials;
+      final loginCredentials = LoginCredentials(
+        username: credentials.email,
+        password: credentials.password,
+      );
 
-        final state = AuthState(authFlowStatus: AuthFlowStatus.verification);
-        _authStateController.add(state);
+      if (result.isSignUpComplete) {
+        await loginWithCredentials(loginCredentials);
+        return true;
+      } else {
+        _credentials = loginCredentials;
+        _authFlowStatus = AuthFlowStatus.unauthenticated;
+        return false;
       }
     } on AuthException catch (authExe) {
       print('Failed to sign up - ${authExe.message}');
@@ -244,8 +241,7 @@ class AuthenticationRepository {
       );
 
       if (result.isSignedIn) {
-        final state = AuthState(authFlowStatus: AuthFlowStatus.session);
-        _authStateController.add(state);
+        _authFlowStatus = AuthFlowStatus.authenticated;
       } else {
         print('User could not be signed in - ${result.toString()}');
         throw const LogInWithEmailAndPasswordFailure();
@@ -280,7 +276,8 @@ class AuthenticationRepository {
     } on AuthException catch (authExe) {
       print('Could not verify code - ${authExe.message}');
       throw const VerificationFailure();
-    } catch (_) {
+    } catch (err) {
+      print('Failed to verify - ${err}');
       throw const VerificationFailure();
     }
   }
@@ -292,7 +289,7 @@ class AuthenticationRepository {
   Future<void> logOut() async {
     try {
       await Amplify.Auth.signOut();
-      triggerLogin();
+      _authFlowStatus = AuthFlowStatus.unauthenticated;
     } on AuthException catch (authExe) {
       print('Could not logout - ${authExe.message}');
       throw LogOutFailure();
@@ -306,6 +303,7 @@ class AuthenticationRepository {
       final authUser = await Amplify.Auth.getCurrentUser();
       final user = User(
         id: authUser.userId,
+        username: authUser.username,
       );
       return user;
     } catch (_) {
@@ -320,14 +318,17 @@ class AuthenticationRepository {
       final result = await Amplify.Auth.fetchAuthSession();
 
       if (result.isSignedIn) {
-        final state = AuthState(authFlowStatus: AuthFlowStatus.session);
-        _authStateController.add(state);
+        _authFlowStatus = AuthFlowStatus.authenticated;
         return;
       }
     } catch (_) {
       print('Check auth state failure');
     }
-    final state = AuthState(authFlowStatus: AuthFlowStatus.login);
+    _authFlowStatus = AuthFlowStatus.authenticated;
+  }
+
+  set _authFlowStatus(AuthFlowStatus status) {
+    final state = AuthState(authFlowStatus: status);
     _authStateController.add(state);
   }
 }
