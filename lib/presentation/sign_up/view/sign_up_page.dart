@@ -29,16 +29,6 @@ class SignUpPage extends StatelessWidget {
                 child: const Text('Already have an account? Login.'),
               ),
             ),
-            const SizedBox(height: 12),
-            Container(
-              alignment: Alignment.bottomCenter,
-              child: TextButton(
-                onPressed: () {
-                  context.router.replace(const VerificationPageRoute());
-                },
-                child: const Text('verify sign up.'),
-              ),
-            )
           ])),
     );
   }

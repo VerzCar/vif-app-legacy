@@ -52,8 +52,13 @@ class AuthenticationBloc
   void _onAuthenticationLogoutRequested(
     AuthenticationLogoutRequested event,
     Emitter<AuthenticationState> emit,
-  ) {
-    _authenticationRepository.logOut();
+  ) async {
+    try {
+      await _authenticationRepository.logOut();
+      emit(const AuthenticationState.unauthenticated());
+    } catch (_) {
+      return null;
+    }
   }
 
   Future<User?> _tryGetUser() async {

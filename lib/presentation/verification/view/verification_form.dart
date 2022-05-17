@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:vote_your_face/presentation/core.dart';
 import 'package:vote_your_face/presentation/routes/router.gr.dart';
 import 'package:vote_your_face/presentation/verification/cubit/verification_cubit.dart';
 
@@ -28,7 +29,7 @@ class VerificationForm extends StatelessWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _UsernameInput(),
+            _VerificationCodeInput(),
             const SizedBox(height: 8),
             _SubmitButton(),
           ],
@@ -38,7 +39,7 @@ class VerificationForm extends StatelessWidget {
   }
 }
 
-class _UsernameInput extends StatelessWidget {
+class _VerificationCodeInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<VerificationCubit, VerificationState>(
@@ -52,7 +53,7 @@ class _UsernameInput extends StatelessWidget {
               .verificationCodeChanged(verificationCode),
           keyboardType: TextInputType.number,
           decoration: InputDecoration(
-            labelText: 'username',
+            labelText: 'code',
             helperText: '',
             icon: const Icon(Icons.confirmation_number),
             errorText: state.verificationCode.invalid
@@ -71,23 +72,15 @@ class _SubmitButton extends StatelessWidget {
     return BlocBuilder<VerificationCubit, VerificationState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        return state.status.isSubmissionInProgress
-            ? const CircularProgressIndicator()
-            : ElevatedButton(
-                key: const Key('verificationForm_submit_raisedButton'),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  primary: Colors.orangeAccent,
-                ),
-                onPressed: state.status.isValidated
-                    ? () => context
-                        .read<VerificationCubit>()
-                        .verificationCodeFormSubmitted()
-                    : null,
-                child: const Text('Verify'),
-              );
+        return SubmitButton(
+          key: const Key('verificationForm_submitButton'),
+          submitText: 'Verify',
+          onPressed: () {
+            context.read<VerificationCubit>().verificationCodeFormSubmitted();
+          },
+          isDisabled: !state.status.isValidated,
+          isLoading: state.status.isSubmissionInProgress,
+        );
       },
     );
   }

@@ -1,5 +1,8 @@
+import 'package:authentication_repository/authentication_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:vote_your_face/presentation/routes/router.gr.dart';
 import 'package:vote_your_face/application/authentication/authentication.dart';
 
 class HomePage extends StatelessWidget {
@@ -7,27 +10,36 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(title: const Text('Home')),
-      body: Center(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: <Widget>[
-            Builder(
-              builder: (context) {
-                final userId = context.select(
-                  (AuthenticationBloc bloc) => bloc.state.user.id,
-                );
-                return Text('UserID: $userId');
-              },
-            ),
-            ElevatedButton(
-              child: const Text('Logout'),
-              onPressed: () {
-                context.read<AuthenticationBloc>().add(AuthenticationLogoutRequested());
-              },
-            ),
-          ],
+    return BlocListener<AuthenticationBloc, AuthenticationState>(
+      listener: (context, state) {
+        if (state.status == AuthFlowStatus.unauthenticated) {
+          context.router.replace(const LoginPageRoute());
+        }
+      },
+      child: Scaffold(
+        appBar: AppBar(title: const Text('Home')),
+        body: Center(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: <Widget>[
+              Builder(
+                builder: (context) {
+                  final userId = context.select(
+                    (AuthenticationBloc bloc) => bloc.state.user.id,
+                  );
+                  return Text('UserID: $userId');
+                },
+              ),
+              ElevatedButton(
+                child: const Text('Logout'),
+                onPressed: () {
+                  context
+                      .read<AuthenticationBloc>()
+                      .add(AuthenticationLogoutRequested());
+                },
+              ),
+            ],
+          ),
         ),
       ),
     );

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:vote_your_face/presentation/core.dart';
 import 'package:vote_your_face/presentation/routes/router.gr.dart';
 import 'package:vote_your_face/presentation/sign_up/cubit/sign_up_cubit.dart';
 
@@ -143,21 +144,15 @@ class _SignUpButton extends StatelessWidget {
     return BlocBuilder<SignUpCubit, SignUpState>(
       buildWhen: (previous, current) => previous.status != current.status,
       builder: (context, state) {
-        return state.status.isSubmissionInProgress
-            ? const CircularProgressIndicator()
-            : ElevatedButton(
-                key: const Key('signUpForm_continue_raisedButton'),
-                style: ElevatedButton.styleFrom(
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
-                  primary: Colors.orangeAccent,
-                ),
-                onPressed: state.status.isValidated
-                    ? () => context.read<SignUpCubit>().signUpFormSubmitted()
-                    : null,
-                child: const Text('SIGN UP'),
-              );
+        return SubmitButton(
+          key: const Key('signUpForm_submitButton'),
+          submitText: 'Sign Up',
+          onPressed: () {
+            context.read<SignUpCubit>().signUpFormSubmitted();
+          },
+          isDisabled: !state.status.isValidated,
+          isLoading: state.status.isSubmissionInProgress,
+        );
       },
     );
   }
