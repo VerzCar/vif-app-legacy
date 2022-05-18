@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:vote_your_face/presentation/core.dart';
+import 'package:vote_your_face/presentation/shared.dart';
 import 'package:vote_your_face/presentation/routes/router.gr.dart';
 import 'package:vote_your_face/presentation/login/login.dart';
 import 'package:formz/formz.dart';
@@ -24,10 +24,12 @@ class LoginForm extends StatelessWidget {
         }
       },
       child: Align(
-        alignment: const Alignment(0, -1 / 3),
+        alignment: const Alignment(0, -1 / 4),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const _FormTitle(),
+            const Padding(padding: EdgeInsets.all(20)),
             _UsernameInput(),
             const Padding(padding: EdgeInsets.all(12)),
             _PasswordInput(),
@@ -40,20 +42,28 @@ class LoginForm extends StatelessWidget {
   }
 }
 
+class _FormTitle extends StatelessWidget {
+  const _FormTitle({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text('Melde dich mit deinem Account an');
+  }
+}
+
 class _UsernameInput extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) => previous.username != current.username,
       builder: (context, state) {
-        return TextField(
-          key: const Key('loginForm_usernameInput_textField'),
+        return VecTextFormField(
+          key: const Key('loginForm_usernameInput_textFormField'),
           onChanged: (username) =>
               context.read<LoginBloc>().add(LoginUsernameChanged(username)),
-          decoration: InputDecoration(
-            labelText: 'username',
-            errorText: state.username.invalid ? 'invalid username' : null,
-          ),
+          labelText: 'username',
+          errorText: 'invalid username',
+          showError: state.username.invalid,
         );
       },
     );
@@ -66,15 +76,13 @@ class _PasswordInput extends StatelessWidget {
     return BlocBuilder<LoginBloc, LoginState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
-        return TextField(
-          key: const Key('loginForm_passwordInput_textField'),
+        return VecTextFormField(
+          key: const Key('loginForm_passwordInput_textFormField'),
           onChanged: (password) =>
               context.read<LoginBloc>().add(LoginPasswordChanged(password)),
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'password',
-            errorText: state.password.invalid ? 'invalid password' : null,
-          ),
+          labelText: 'password',
+          errorText: 'invalid password',
+          showError: state.password.invalid,
         );
       },
     );

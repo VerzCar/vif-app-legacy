@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:vote_your_face/presentation/core.dart';
+import 'package:vote_your_face/presentation/shared.dart';
 import 'package:vote_your_face/presentation/routes/router.gr.dart';
 import 'package:vote_your_face/presentation/verification/cubit/verification_cubit.dart';
 
@@ -30,7 +30,7 @@ class VerificationForm extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             _VerificationCodeInput(),
-            const SizedBox(height: 8),
+            const SizedBox(height: 12),
             _SubmitButton(),
           ],
         ),
@@ -46,20 +46,16 @@ class _VerificationCodeInput extends StatelessWidget {
       buildWhen: (previous, current) =>
           previous.verificationCode != current.verificationCode,
       builder: (context, state) {
-        return TextField(
-          key: const Key('verificationForm_codeInput_textField'),
+        return VecTextFormField(
+          key: const Key('verificationForm_codeInput_textFormField'),
           onChanged: (verificationCode) => context
               .read<VerificationCubit>()
               .verificationCodeChanged(verificationCode),
+          labelText: 'verification code',
+          errorText: 'invalid verification code',
+          showError: state.verificationCode.invalid,
           keyboardType: TextInputType.number,
-          decoration: InputDecoration(
-            labelText: 'code',
-            helperText: '',
-            icon: const Icon(Icons.confirmation_number),
-            errorText: state.verificationCode.invalid
-                ? 'invalid verification code'
-                : null,
-          ),
+          icon: const Icon(Icons.confirmation_number),
         );
       },
     );

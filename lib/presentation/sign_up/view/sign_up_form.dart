@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:vote_your_face/presentation/core.dart';
+import 'package:vote_your_face/presentation/shared.dart';
 import 'package:vote_your_face/presentation/routes/router.gr.dart';
 import 'package:vote_your_face/presentation/sign_up/cubit/sign_up_cubit.dart';
 
@@ -26,23 +26,34 @@ class SignUpForm extends StatelessWidget {
         }
       },
       child: Align(
-        alignment: const Alignment(0, -1 / 3),
+        alignment: const Alignment(0, -1 / 6),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
+            const _FormTitle(),
+            const Padding(padding: EdgeInsets.all(20)),
             _UsernameInput(),
-            const SizedBox(height: 8),
+            const Padding(padding: EdgeInsets.all(12)),
             _EmailInput(),
-            const SizedBox(height: 8),
+            const Padding(padding: EdgeInsets.all(12)),
             _PasswordInput(),
-            const SizedBox(height: 8),
+            const Padding(padding: EdgeInsets.all(12)),
             _ConfirmPasswordInput(),
-            const SizedBox(height: 8),
+            const Padding(padding: EdgeInsets.all(12)),
             _SignUpButton(),
           ],
         ),
       ),
     );
+  }
+}
+
+class _FormTitle extends StatelessWidget {
+  const _FormTitle({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return const Text('Erstelle einen Account');
   }
 }
 
@@ -52,16 +63,13 @@ class _UsernameInput extends StatelessWidget {
     return BlocBuilder<SignUpCubit, SignUpState>(
       buildWhen: (previous, current) => previous.username != current.username,
       builder: (context, state) {
-        return TextField(
-          key: const Key('signUpForm_usernameInput_textField'),
+        return VecTextFormField(
+          key: const Key('signUpForm_usernameInput_textFormField'),
           onChanged: (username) =>
               context.read<SignUpCubit>().usernameChanged(username),
-          keyboardType: TextInputType.text,
-          decoration: InputDecoration(
-            labelText: 'username',
-            helperText: '',
-            errorText: state.username.invalid ? 'invalid username' : null,
-          ),
+          labelText: 'username',
+          errorText: 'invalid username',
+          showError: state.username.invalid,
         );
       },
     );
@@ -74,15 +82,12 @@ class _EmailInput extends StatelessWidget {
     return BlocBuilder<SignUpCubit, SignUpState>(
       buildWhen: (previous, current) => previous.email != current.email,
       builder: (context, state) {
-        return TextField(
-          key: const Key('signUpForm_emailInput_textField'),
+        return VecTextFormField(
+          key: const Key('signUpForm_emailInput_textFormField'),
           onChanged: (email) => context.read<SignUpCubit>().emailChanged(email),
-          keyboardType: TextInputType.emailAddress,
-          decoration: InputDecoration(
-            labelText: 'email',
-            helperText: '',
-            errorText: state.email.invalid ? 'invalid email' : null,
-          ),
+          labelText: 'email',
+          errorText: 'invalid email',
+          showError: state.email.invalid,
         );
       },
     );
@@ -95,16 +100,13 @@ class _PasswordInput extends StatelessWidget {
     return BlocBuilder<SignUpCubit, SignUpState>(
       buildWhen: (previous, current) => previous.password != current.password,
       builder: (context, state) {
-        return TextField(
+        return VecTextFormField(
           key: const Key('signUpForm_passwordInput_textField'),
           onChanged: (password) =>
               context.read<SignUpCubit>().passwordChanged(password),
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'password',
-            helperText: '',
-            errorText: state.password.invalid ? 'invalid password' : null,
-          ),
+          labelText: 'password',
+          errorText: 'invalid password',
+          showError: state.password.invalid,
         );
       },
     );
@@ -119,19 +121,14 @@ class _ConfirmPasswordInput extends StatelessWidget {
           previous.password != current.password ||
           previous.confirmedPassword != current.confirmedPassword,
       builder: (context, state) {
-        return TextField(
-          key: const Key('signUpForm_confirmedPasswordInput_textField'),
+        return VecTextFormField(
+          key: const Key('signUpForm_confirmedPasswordInput_textFormField'),
           onChanged: (confirmPassword) => context
               .read<SignUpCubit>()
               .confirmedPasswordChanged(confirmPassword),
-          obscureText: true,
-          decoration: InputDecoration(
-            labelText: 'confirm password',
-            helperText: '',
-            errorText: state.confirmedPassword.invalid
-                ? 'passwords do not match'
-                : null,
-          ),
+          labelText: 'confirm password',
+          errorText: 'passwords do not match',
+          showError: state.confirmedPassword.invalid,
         );
       },
     );

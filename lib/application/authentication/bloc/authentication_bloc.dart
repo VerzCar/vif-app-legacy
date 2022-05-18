@@ -55,7 +55,6 @@ class AuthenticationBloc
   ) async {
     try {
       await _authenticationRepository.logOut();
-      emit(const AuthenticationState.unauthenticated());
     } catch (_) {
       return null;
     }
