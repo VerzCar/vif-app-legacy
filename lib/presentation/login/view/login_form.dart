@@ -83,6 +83,7 @@ class _PasswordInput extends StatelessWidget {
           labelText: 'password',
           errorText: 'invalid password',
           showError: state.password.invalid,
+          obscureText: true,
         );
       },
     );

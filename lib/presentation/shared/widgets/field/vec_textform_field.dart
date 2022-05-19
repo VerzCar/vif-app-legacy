@@ -6,6 +6,7 @@ class VecTextFormField extends StatelessWidget {
   final String errorText;
   final bool showError;
   final TextInputType keyboardType;
+  final bool obscureText;
   final Icon? icon;
 
   const VecTextFormField({
@@ -15,6 +16,7 @@ class VecTextFormField extends StatelessWidget {
     this.errorText = '',
     this.showError = false,
     this.keyboardType = TextInputType.text,
+    this.obscureText = false,
     this.icon,
   }) : super(key: key);
 
@@ -23,7 +25,7 @@ class VecTextFormField extends StatelessWidget {
     return TextFormField(
       key: key,
       onChanged: onChanged,
-      obscureText: true,
+      obscureText: obscureText,
       keyboardType: keyboardType,
       decoration: InputDecoration(
         focusedBorder: const OutlineInputBorder(),

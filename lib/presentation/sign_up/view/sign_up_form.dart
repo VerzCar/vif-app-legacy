@@ -107,6 +107,7 @@ class _PasswordInput extends StatelessWidget {
           labelText: 'password',
           errorText: 'invalid password',
           showError: state.password.invalid,
+          obscureText: true,
         );
       },
     );
@@ -129,6 +130,7 @@ class _ConfirmPasswordInput extends StatelessWidget {
           labelText: 'confirm password',
           errorText: 'passwords do not match',
           showError: state.confirmedPassword.invalid,
+          obscureText: true,
         );
       },
     );
