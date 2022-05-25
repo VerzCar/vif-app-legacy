@@ -179,6 +179,7 @@ class AuthenticationRepository {
   final _authStateController = StreamController<AuthState>();
   late AuthCredentials _credentials =
       LoginCredentials(username: '', password: '');
+  late String _accessToken = '';
 
   /// Whether or not the current environment is web
   /// Should only be overriden for testing purposes. Otherwise,
@@ -313,9 +314,19 @@ class AuthenticationRepository {
 
   void dispose() => _authStateController.close();
 
+  get accessToken {
+    return _accessToken;
+  }
+
   Future<void> _checkAuthStatus() async {
     try {
-      final result = await Amplify.Auth.fetchAuthSession();
+      final AuthSession result = await Amplify.Auth.fetchAuthSession(
+        options: CognitoSessionOptions(getAWSCredentials: true),
+      );
+
+      String? accessToken =
+          (result as CognitoAuthSession).userPoolTokens?.accessToken;
+      _accessToken = accessToken != null ? accessToken : '';
 
       if (result.isSignedIn) {
         _authFlowStatus = AuthFlowStatus.authenticated;
