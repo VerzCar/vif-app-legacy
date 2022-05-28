@@ -1,0 +1,107 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Address {
+    address: String!
+    city: String!
+    country: Country!
+    createdAt: Time!
+    id: ID!
+    postalCode: String!
+    updatedAt: Time!
+}
+
+type Bio {
+    description: String!
+    id: ID!
+}
+
+type Contact {
+    createdAt: Time!
+    email: String!
+    id: ID!
+    phoneNumber: String!
+    phoneNumber2: String!
+    phoneNumber2Country: Country!
+    phoneNumberCountry: Country!
+    updatedAt: Time!
+    web: String!
+}
+
+type Country {
+    alpha2: String!
+    alpha3: String!
+    id: ID!
+    name: String!
+}
+
+type Locale {
+    id: ID!
+    languageCode: String!
+    lcidString: String!
+    locale: String!
+}
+
+type Mutation {
+    ping: String!
+}
+
+type Query {
+    ping: String!
+    user: User!
+}
+
+type User {
+    address: Address
+    bio: Bio
+    contact: Contact
+    firstName: String
+    gender: Gender
+    id: ID!
+    lastName: String
+    locale: Locale
+    username: String
+}
+
+enum Gender {
+    MAN
+    WOMEN
+    X
+}
+
+scalar Time
+
+input AddressInput {
+    address: String!
+    city: String!
+    countryAlphaCode: String!
+    postalCode: String!
+}
+
+input BioInput {
+    description: String!
+}
+
+input ContactInput {
+    email: String!
+    phoneNumber: String!
+    phoneNumber2: String
+    phoneNumber2CountryAlphaCode: String
+    phoneNumberCountryAlphaCode: String!
+    web: String
+}
+
+input UserUpdateInput {
+    address: AddressInput
+    bio: BioInput
+    contact: ContactInput
+    firstName: String
+    gender: Gender
+    lastName: String
+    locale: String
+    username: String
+}

@@ -1,0 +1,16 @@
+{
+  "name": "User service GraphQL Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://127.0.0.1:8080/query",
+        "headers": {
+          "Authorization": "Bearer eyJraWQiOiIzd0tZYitzaFBwbksyXC8wZ3VZTjRaenVhNm1zYzJnSFVcL0d5a3c2dXJJUDg9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJhNDYzNmQyNC0yNDU4LTRjN2MtOTE0ZC04YTQxZjcwMzZjNjgiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuZXUtY2VudHJhbC0xLmFtYXpvbmF3cy5jb21cL2V1LWNlbnRyYWwtMV9WR3hQS1V1NkoiLCJjbGllbnRfaWQiOiI0MHB0MGZtOGdocGJ2NzVodmJrNWxwY2FvNiIsIm9yaWdpbl9qdGkiOiIwYjc3ODQ5NC0wY2JlLTRhYzktOWJkNi1kOWFmMjc1NDRmMTgiLCJldmVudF9pZCI6IjJkZWU2NzE1LTYyMzMtNDU5Yi1hYWE0LTc1ZTMwMjRhNDNiMiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2NTM0NzA2MDksImV4cCI6MTY1MzQ3NDIwOSwiaWF0IjoxNjUzNDcwNjA5LCJqdGkiOiIxMmFiOWUzOC0yMzk0LTRlMGUtOTU5Ny03YmUyNjA2YmNhZDkiLCJ1c2VybmFtZSI6ImE0NjM2ZDI0LTI0NTgtNGM3Yy05MTRkLThhNDFmNzAzNmM2OCJ9.hfhFL8rHXCcUzjckaSQrsjAOBhkfO3IjRxnOBmgK0wDOyixlJfbeqkLdSF5ty3HvkJq8RZAeKO4YyjdQ7fOiPmWd6nyblx5NUVqabdv95rw7rAQfxX93fSHkMXq7XQOvlN4WqPjCQMJzLYWQwBr05rKFDId4viuQhBVWc__iTLA50KOps4gmAvNq-XgT54aiK9HrvOeemVBEbjmRk6J7HVjK94QJPctSlXfIxnR0SF85yCBubwkfu-V0RGuEc2KRC0sftikmHspt4pyUuC6th-3R5g2eoPUDjOg_fxm3pM9nTf7tU8UwUSofut2bpAf-ouvBhgITKLV-ZbMZ75wzjg",
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": true
+      }
+    }
+  }
+}

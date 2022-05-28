@@ -1,0 +1,15 @@
+query user{
+    user {
+        id
+        username
+        firstName
+        lastName
+        gender
+        locale {
+            lcidString
+        }
+        contact {
+            email
+        }
+    }
+}
