@@ -1,0 +1,65 @@
+# This file was generated based on ".graphqlconfig". Do not edit manually.
+
+schema {
+    query: Query
+    mutation: Mutation
+}
+
+type Circle {
+    createdFrom: String!
+    id: ID!
+    name: String!
+    private: Boolean!
+    validUntil: Time
+    voters: [CircleVoter!]
+    votes: [Vote!]
+}
+
+type CircleVoter {
+    committed: Boolean!
+    createdAt: Time
+    id: ID!
+    rejected: Boolean!
+    updatedAt: Time
+    voter: String!
+}
+
+type Mutation {
+    createCircle(circleCreateInput: CircleCreateInput!): Circle!
+    ping: String!
+    updateCircle(circleUpdateInput: CircleUpdateInput!, id: ID!): Circle!
+}
+
+type Query {
+    circle(id: ID!): Circle!
+    ping: String!
+}
+
+type Vote {
+    circle: Circle!
+    createdAt: Time
+    elected: String!
+    id: ID!
+    updatedAt: Time
+    voter: String!
+}
+
+scalar Time
+
+input CircleCreateInput {
+    name: String!
+    private: Boolean
+    validUntil: Time
+    voters: [CircleVoterInput!]!
+}
+
+input CircleUpdateInput {
+    name: String
+    private: Boolean
+    validUntil: Time
+    voters: [CircleVoterInput]
+}
+
+input CircleVoterInput {
+    voter: String!
+}

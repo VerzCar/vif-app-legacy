@@ -1,5 +1,5 @@
-name: user_api
-description: User API client.
+name: vote_circle_api
+description: Vote and Circle API client.
 version: 1.0.0
 homepage: ''
 

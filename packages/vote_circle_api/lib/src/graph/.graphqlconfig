@@ -1,0 +1,16 @@
+{
+  "name": "VoteCircle service GraphQL Schema",
+  "schemaPath": "schema.graphql",
+  "extensions": {
+    "endpoints": {
+      "Default GraphQL Endpoint": {
+        "url": "http://127.0.0.1:8081/query",
+        "headers": {
+          "Authorization": "Bearer eyJraWQiOiIzd0tZYitzaFBwbksyXC8wZ3VZTjRaenVhNm1zYzJnSFVcL0d5a3c2dXJJUDg9IiwiYWxnIjoiUlMyNTYifQ.eyJzdWIiOiJhNDYzNmQyNC0yNDU4LTRjN2MtOTE0ZC04YTQxZjcwMzZjNjgiLCJpc3MiOiJodHRwczpcL1wvY29nbml0by1pZHAuZXUtY2VudHJhbC0xLmFtYXpvbmF3cy5jb21cL2V1LWNlbnRyYWwtMV9WR3hQS1V1NkoiLCJjbGllbnRfaWQiOiI0MHB0MGZtOGdocGJ2NzVodmJrNWxwY2FvNiIsIm9yaWdpbl9qdGkiOiI1YzBiMmZmYy1hYmI1LTQ0NzYtYmE1MC1hM2NiNjcwZDAzNTIiLCJldmVudF9pZCI6Ijc0N2JjMjNiLWU3M2QtNDcwNi1hOGJhLThjNDU2ZDU4YmUxYiIsInRva2VuX3VzZSI6ImFjY2VzcyIsInNjb3BlIjoiYXdzLmNvZ25pdG8uc2lnbmluLnVzZXIuYWRtaW4iLCJhdXRoX3RpbWUiOjE2NTQ0NTk1NDIsImV4cCI6MTY1NDQ2MzE0MiwiaWF0IjoxNjU0NDU5NTQyLCJqdGkiOiIwMWYyZTU1NS00NTJjLTQ0NjMtOWRhNy0yYmJjYWI0OWQ3OGQiLCJ1c2VybmFtZSI6ImE0NjM2ZDI0LTI0NTgtNGM3Yy05MTRkLThhNDFmNzAzNmM2OCJ9.CZtHz8GAHrjiiJsPMC57Ilp14h1mwTXMuNfn2CNyHx8-ka8G5bcG60_x0zu8KSoi7OQLy-PlfLE-turj2wmtOZKi17444h-Cv2UxOjG_PzmoLLsgIu_RT_mi4ZMfS9oEmkiqT_E_GcgY4IFPo4ZYnRVRtD0HxD-2hPeOScZ5RUp05IWZqrhGWPUDj_XUPTDsMnwSUft4_eLCGJVkI61ZJSVT2ddWyU6XYdT5GEbrvw-vyvhKtA2f5hSv8Lkyw9Zya3MP5MsQvqMORGZMPXGQ6-cuxpHdpSvfc49Dxo2OxB376T8YgfTaG5ReYclGn_oyAnTT_9u5DZ2e8-qGOx9q7w",
+          "user-agent": "JS GraphQL"
+        },
+        "introspect": true
+      }
+    }
+  }
+}

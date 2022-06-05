@@ -1,0 +1,22 @@
+query circle($id: ID!) {
+    circle(id: $id) {
+        id
+        name
+        votes {
+            id
+            voter
+            elected
+        }
+        voters {
+            id
+            voter
+            committed
+            rejected
+            createdAt
+            updatedAt
+        }
+        private
+        createdFrom
+        validUntil
+    }
+}
