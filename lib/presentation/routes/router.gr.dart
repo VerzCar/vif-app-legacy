@@ -10,134 +10,156 @@
 //
 // ignore_for_file: type=lint
 
-import 'package:auto_route/auto_route.dart' as _i9;
-import 'package:flutter/material.dart' as _i10;
+part of 'router.dart';
 
-import '../home/home.dart' as _i5;
-import '../login/login.dart' as _i2;
-import '../ranking_list/ranking_list.dart' as _i6;
-import '../search/search.dart' as _i7;
-import '../settings/view/settings_page.dart' as _i8;
-import '../sign_up/view/sign_up_page.dart' as _i3;
-import '../splash/splash.dart' as _i1;
-import '../verification/view/verification_page.dart' as _i4;
-
-class AppRouter extends _i9.RootStackRouter {
-  AppRouter([_i10.GlobalKey<_i10.NavigatorState>? navigatorKey])
-      : super(navigatorKey);
+class _$AppRouter extends RootStackRouter {
+  _$AppRouter([GlobalKey<NavigatorState>? navigatorKey]) : super(navigatorKey);
 
   @override
-  final Map<String, _i9.PageFactory> pagesMap = {
-    SplashPageRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i1.SplashPage());
+  final Map<String, PageFactory> pagesMap = {
+    SplashRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const SplashPage());
     },
-    LoginPageRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i2.LoginPage());
+    LoginRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const LoginPage());
     },
-    SignUpPageRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i3.SignUpPage());
+    SignUpRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const SignUpPage());
     },
-    VerificationPageRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i4.VerificationPage());
+    VerificationRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const VerificationPage());
     },
-    HomePageRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i5.HomePage());
+    HomeRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const HomePage());
     },
-    RankingListPageRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i6.RankingListPage());
+    CircleDetailRoute.name: (routeData) {
+      final pathParams = routeData.inheritedPathParams;
+      final args = routeData.argsAs<CircleDetailRouteArgs>(
+          orElse: () => CircleDetailRouteArgs(id: pathParams.getInt('id')));
+      return MaterialPageX<dynamic>(
+          routeData: routeData,
+          child: CircleDetailPage(key: args.key, id: args.id));
     },
-    SearchPageRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i7.SearchPage());
+    RankingListRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const RankingListPage());
     },
-    SettingsPageRoute.name: (routeData) {
-      return _i9.MaterialPageX<dynamic>(
-          routeData: routeData, child: const _i8.SettingsPage());
+    SearchRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const SearchPage());
+    },
+    SettingsRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const SettingsPage());
     }
   };
 
   @override
-  List<_i9.RouteConfig> get routes => [
-        _i9.RouteConfig(SplashPageRoute.name, path: '/'),
-        _i9.RouteConfig(LoginPageRoute.name, path: '/login-page'),
-        _i9.RouteConfig(SignUpPageRoute.name, path: '/sign-up-page'),
-        _i9.RouteConfig(VerificationPageRoute.name, path: '/verification-page'),
-        _i9.RouteConfig(HomePageRoute.name, path: '/home-page'),
-        _i9.RouteConfig(RankingListPageRoute.name, path: '/ranking-list-page'),
-        _i9.RouteConfig(SearchPageRoute.name, path: '/search-page'),
-        _i9.RouteConfig(SettingsPageRoute.name, path: '/settings-page')
+  List<RouteConfig> get routes => [
+        RouteConfig(SplashRoute.name, path: '/'),
+        RouteConfig(LoginRoute.name, path: '/login-page'),
+        RouteConfig(SignUpRoute.name, path: '/sign-up-page'),
+        RouteConfig(VerificationRoute.name, path: '/verification-page'),
+        RouteConfig(HomeRoute.name, path: '/home-page'),
+        RouteConfig(CircleDetailRoute.name, path: '/circle-detail-page/:id'),
+        RouteConfig(RankingListRoute.name, path: '/ranking-list-page'),
+        RouteConfig(SearchRoute.name, path: '/search-page'),
+        RouteConfig(SettingsRoute.name, path: '/settings-page')
       ];
 }
 
 /// generated route for
-/// [_i1.SplashPage]
-class SplashPageRoute extends _i9.PageRouteInfo<void> {
-  const SplashPageRoute() : super(SplashPageRoute.name, path: '/');
+/// [SplashPage]
+class SplashRoute extends PageRouteInfo<void> {
+  const SplashRoute() : super(SplashRoute.name, path: '/');
 
-  static const String name = 'SplashPageRoute';
+  static const String name = 'SplashRoute';
 }
 
 /// generated route for
-/// [_i2.LoginPage]
-class LoginPageRoute extends _i9.PageRouteInfo<void> {
-  const LoginPageRoute() : super(LoginPageRoute.name, path: '/login-page');
+/// [LoginPage]
+class LoginRoute extends PageRouteInfo<void> {
+  const LoginRoute() : super(LoginRoute.name, path: '/login-page');
 
-  static const String name = 'LoginPageRoute';
+  static const String name = 'LoginRoute';
 }
 
 /// generated route for
-/// [_i3.SignUpPage]
-class SignUpPageRoute extends _i9.PageRouteInfo<void> {
-  const SignUpPageRoute() : super(SignUpPageRoute.name, path: '/sign-up-page');
+/// [SignUpPage]
+class SignUpRoute extends PageRouteInfo<void> {
+  const SignUpRoute() : super(SignUpRoute.name, path: '/sign-up-page');
 
-  static const String name = 'SignUpPageRoute';
+  static const String name = 'SignUpRoute';
 }
 
 /// generated route for
-/// [_i4.VerificationPage]
-class VerificationPageRoute extends _i9.PageRouteInfo<void> {
-  const VerificationPageRoute()
-      : super(VerificationPageRoute.name, path: '/verification-page');
+/// [VerificationPage]
+class VerificationRoute extends PageRouteInfo<void> {
+  const VerificationRoute()
+      : super(VerificationRoute.name, path: '/verification-page');
 
-  static const String name = 'VerificationPageRoute';
+  static const String name = 'VerificationRoute';
 }
 
 /// generated route for
-/// [_i5.HomePage]
-class HomePageRoute extends _i9.PageRouteInfo<void> {
-  const HomePageRoute() : super(HomePageRoute.name, path: '/home-page');
+/// [HomePage]
+class HomeRoute extends PageRouteInfo<void> {
+  const HomeRoute() : super(HomeRoute.name, path: '/home-page');
 
-  static const String name = 'HomePageRoute';
+  static const String name = 'HomeRoute';
 }
 
 /// generated route for
-/// [_i6.RankingListPage]
-class RankingListPageRoute extends _i9.PageRouteInfo<void> {
-  const RankingListPageRoute()
-      : super(RankingListPageRoute.name, path: '/ranking-list-page');
+/// [CircleDetailPage]
+class CircleDetailRoute extends PageRouteInfo<CircleDetailRouteArgs> {
+  CircleDetailRoute({Key? key, required int id})
+      : super(CircleDetailRoute.name,
+            path: '/circle-detail-page/:id',
+            args: CircleDetailRouteArgs(key: key, id: id),
+            rawPathParams: {'id': id});
 
-  static const String name = 'RankingListPageRoute';
+  static const String name = 'CircleDetailRoute';
+}
+
+class CircleDetailRouteArgs {
+  const CircleDetailRouteArgs({this.key, required this.id});
+
+  final Key? key;
+
+  final int id;
+
+  @override
+  String toString() {
+    return 'CircleDetailRouteArgs{key: $key, id: $id}';
+  }
 }
 
 /// generated route for
-/// [_i7.SearchPage]
-class SearchPageRoute extends _i9.PageRouteInfo<void> {
-  const SearchPageRoute() : super(SearchPageRoute.name, path: '/search-page');
+/// [RankingListPage]
+class RankingListRoute extends PageRouteInfo<void> {
+  const RankingListRoute()
+      : super(RankingListRoute.name, path: '/ranking-list-page');
 
-  static const String name = 'SearchPageRoute';
+  static const String name = 'RankingListRoute';
 }
 
 /// generated route for
-/// [_i8.SettingsPage]
-class SettingsPageRoute extends _i9.PageRouteInfo<void> {
-  const SettingsPageRoute()
-      : super(SettingsPageRoute.name, path: '/settings-page');
+/// [SearchPage]
+class SearchRoute extends PageRouteInfo<void> {
+  const SearchRoute() : super(SearchRoute.name, path: '/search-page');
 
-  static const String name = 'SettingsPageRoute';
+  static const String name = 'SearchRoute';
+}
+
+/// generated route for
+/// [SettingsPage]
+class SettingsRoute extends PageRouteInfo<void> {
+  const SettingsRoute() : super(SettingsRoute.name, path: '/settings-page');
+
+  static const String name = 'SettingsRoute';
 }

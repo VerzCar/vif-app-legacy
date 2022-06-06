@@ -77,7 +77,7 @@ class Input$CircleUpdateInput {
 
   final String? validUntil;
 
-  final List<Input$CircleVoterInput?>? voters;
+  final List<Input$CircleVoterInput>? voters;
 
   Map<String, dynamic> toJson() => _$Input$CircleUpdateInputToJson(this);
   int get hashCode {

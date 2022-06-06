@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vote_your_face/application/authentication/authentication.dart';
-import 'package:vote_your_face/presentation/routes/router.gr.dart';
+import 'package:vote_your_face/presentation/routes/router.dart';
 
 class SplashPage extends StatelessWidget {
   const SplashPage({Key? key}) : super(key: key);
@@ -14,10 +14,10 @@ class SplashPage extends StatelessWidget {
       listener: (context, state) {
         switch (state.status) {
           case AuthFlowStatus.authenticated:
-            context.router.replace(const HomePageRoute());
+            context.router.replace(const HomeRoute());
             break;
           case AuthFlowStatus.unauthenticated:
-            context.router.replace(const LoginPageRoute());
+            context.router.replace(const LoginRoute());
             break;
           default:
             break;

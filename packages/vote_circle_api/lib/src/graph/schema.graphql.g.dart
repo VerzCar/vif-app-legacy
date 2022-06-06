@@ -34,9 +34,8 @@ Input$CircleUpdateInput _$Input$CircleUpdateInputFromJson(
       private: json['private'] as bool?,
       validUntil: json['validUntil'] as String?,
       voters: (json['voters'] as List<dynamic>?)
-          ?.map((e) => e == null
-              ? null
-              : Input$CircleVoterInput.fromJson(e as Map<String, dynamic>))
+          ?.map(
+              (e) => Input$CircleVoterInput.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
@@ -46,7 +45,7 @@ Map<String, dynamic> _$Input$CircleUpdateInputToJson(
       'name': instance.name,
       'private': instance.private,
       'validUntil': instance.validUntil,
-      'voters': instance.voters?.map((e) => e?.toJson()).toList(),
+      'voters': instance.voters?.map((e) => e.toJson()).toList(),
     };
 
 Input$CircleVoterInput _$Input$CircleVoterInputFromJson(

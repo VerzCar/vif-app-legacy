@@ -38,8 +38,8 @@ Query$circle$circle _$Query$circle$circleFromJson(Map<String, dynamic> json) =>
           ?.map((e) =>
               Query$circle$circle$votes.fromJson(e as Map<String, dynamic>))
           .toList(),
-      voters: (json['voters'] as List<dynamic>?)
-          ?.map((e) =>
+      voters: (json['voters'] as List<dynamic>)
+          .map((e) =>
               Query$circle$circle$voters.fromJson(e as Map<String, dynamic>))
           .toList(),
       private: json['private'] as bool,
@@ -54,7 +54,7 @@ Map<String, dynamic> _$Query$circle$circleToJson(
       'id': instance.id,
       'name': instance.name,
       'votes': instance.votes?.map((e) => e.toJson()).toList(),
-      'voters': instance.voters?.map((e) => e.toJson()).toList(),
+      'voters': instance.voters.map((e) => e.toJson()).toList(),
       'private': instance.private,
       'createdFrom': instance.createdFrom,
       'validUntil': instance.validUntil,

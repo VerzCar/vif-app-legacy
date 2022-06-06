@@ -321,7 +321,7 @@ class Query$circle$circle {
       {required this.id,
       required this.name,
       this.votes,
-      this.voters,
+      required this.voters,
       required this.private,
       required this.createdFrom,
       this.validUntil,
@@ -337,7 +337,7 @@ class Query$circle$circle {
 
   final List<Query$circle$circle$votes>? votes;
 
-  final List<Query$circle$circle$voters>? voters;
+  final List<Query$circle$circle$voters> voters;
 
   final bool private;
 
@@ -362,7 +362,7 @@ class Query$circle$circle {
       l$id,
       l$name,
       l$votes == null ? null : Object.hashAll(l$votes.map((v) => v)),
-      l$voters == null ? null : Object.hashAll(l$voters.map((v) => v)),
+      Object.hashAll(l$voters.map((v) => v)),
       l$private,
       l$createdFrom,
       l$validUntil,
@@ -396,15 +396,11 @@ class Query$circle$circle {
 
     final l$voters = voters;
     final lOther$voters = other.voters;
-    if (l$voters != null && lOther$voters != null) {
-      if (l$voters.length != lOther$voters.length) return false;
-      for (int i = 0; i < l$voters.length; i++) {
-        final l$voters$entry = l$voters[i];
-        final lOther$voters$entry = lOther$voters[i];
-        if (l$voters$entry != lOther$voters$entry) return false;
-      }
-    } else if (l$voters != lOther$voters) {
-      return false;
+    if (l$voters.length != lOther$voters.length) return false;
+    for (int i = 0; i < l$voters.length; i++) {
+      final l$voters$entry = l$voters[i];
+      final lOther$voters$entry = lOther$voters[i];
+      if (l$voters$entry != lOther$voters$entry) return false;
     }
 
     final l$private = private;
@@ -428,7 +424,7 @@ extension UtilityExtension$Query$circle$circle on Query$circle$circle {
           {int? id,
           String? name,
           List<Query$circle$circle$votes>? Function()? votes,
-          List<Query$circle$circle$voters>? Function()? voters,
+          List<Query$circle$circle$voters>? voters,
           bool? private,
           String? createdFrom,
           String? Function()? validUntil,
@@ -437,7 +433,7 @@ extension UtilityExtension$Query$circle$circle on Query$circle$circle {
           id: id == null ? this.id : id,
           name: name == null ? this.name : name,
           votes: votes == null ? this.votes : votes(),
-          voters: voters == null ? this.voters : voters(),
+          voters: voters == null ? this.voters : voters,
           private: private == null ? this.private : private,
           createdFrom: createdFrom == null ? this.createdFrom : createdFrom,
           validUntil: validUntil == null ? this.validUntil : validUntil(),

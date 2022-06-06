@@ -3,7 +3,7 @@ import 'circle_voter.dart';
 import 'vote.dart';
 
 class Circle extends Equatable {
-  Circle({
+  const Circle({
     required this.id,
     required this.name,
     required this.voters,
@@ -26,6 +26,16 @@ class Circle extends Equatable {
   final String createdFrom;
 
   final DateTime? validUntil;
+
+  static const empty = Circle(
+    id: 0,
+    name: '',
+    voters: [],
+    private: false,
+    createdFrom: '',
+  );
+
+  bool get isEmpty => this == Circle.empty;
 
   @override
   List<Object?> get props => [

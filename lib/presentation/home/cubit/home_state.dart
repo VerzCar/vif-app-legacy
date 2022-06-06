@@ -1,14 +1,14 @@
 part of 'home_cubit.dart';
 
 enum HomeTab {
-  rankingList,
+  circleDetail,
   search,
   settings,
 }
 
 class HomeState extends Equatable {
   const HomeState({
-    this.tab = HomeTab.rankingList,
+    this.tab = HomeTab.circleDetail,
   });
 
   final HomeTab tab;

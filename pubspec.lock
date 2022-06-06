@@ -799,7 +799,7 @@ packages:
       path: "packages/user_api"
       relative: true
     source: path
-    version: "0.0.1"
+    version: "1.0.0"
   user_repository:
     dependency: "direct main"
     description:
@@ -835,6 +835,20 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "8.3.0"
+  vote_circle_api:
+    dependency: transitive
+    description:
+      path: "packages/vote_circle_api"
+      relative: true
+    source: path
+    version: "1.0.0"
+  vote_circle_repository:
+    dependency: "direct main"
+    description:
+      path: "packages/vote_circle_repository"
+      relative: true
+    source: path
+    version: "1.0.0"
   watcher:
     dependency: transitive
     description:

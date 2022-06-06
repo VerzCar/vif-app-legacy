@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vote_your_face/presentation/routes/router.gr.dart';
+import 'package:vote_your_face/presentation/routes/router.dart';
 import 'package:vote_your_face/presentation/sign_up/cubit/sign_up_cubit.dart';
 import 'package:vote_your_face/presentation/sign_up/view/sign_up_form.dart';
 import 'package:vote_your_face/injection.dart';
@@ -24,7 +24,7 @@ class SignUpPage extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: TextButton(
                 onPressed: () {
-                  context.router.replace(const LoginPageRoute());
+                  context.router.replace(const LoginRoute());
                 },
                 child: const Text('Already have an account? Login.'),
               ),

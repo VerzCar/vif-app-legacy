@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:vote_your_face/presentation/shared.dart';
-import 'package:vote_your_face/presentation/routes/router.gr.dart';
+import 'package:vote_your_face/presentation/routes/router.dart';
 import 'package:vote_your_face/presentation/verification/cubit/verification_cubit.dart';
 
 class VerificationForm extends StatelessWidget {
@@ -14,7 +14,7 @@ class VerificationForm extends StatelessWidget {
     return BlocListener<VerificationCubit, VerificationState>(
       listener: (context, state) {
         if (state.status.isSubmissionSuccess) {
-          context.router.replace(const HomePageRoute());
+          context.router.replace(const HomeRoute());
         } else if (state.status.isSubmissionFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()

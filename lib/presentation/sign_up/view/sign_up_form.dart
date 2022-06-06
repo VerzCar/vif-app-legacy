@@ -3,7 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:formz/formz.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:vote_your_face/presentation/shared.dart';
-import 'package:vote_your_face/presentation/routes/router.gr.dart';
+import 'package:vote_your_face/presentation/routes/router.dart';
 import 'package:vote_your_face/presentation/sign_up/cubit/sign_up_cubit.dart';
 
 class SignUpForm extends StatelessWidget {
@@ -14,9 +14,9 @@ class SignUpForm extends StatelessWidget {
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) {
         if (state.status.isSubmissionSuccess && state.signUpComplete) {
-          context.router.replace(const HomePageRoute());
+          context.router.replace(const HomeRoute());
         } else if (state.status.isSubmissionSuccess && !state.signUpComplete) {
-          context.router.replace(const VerificationPageRoute());
+          context.router.replace(const VerificationRoute());
         } else if (state.status.isSubmissionFailure) {
           ScaffoldMessenger.of(context)
             ..hideCurrentSnackBar()

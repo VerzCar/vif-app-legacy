@@ -47,36 +47,33 @@ class VoteCircleApiClient {
 
       final graphCircle = result.parsedData!.circle;
 
-      final List<Vote> votes = graphCircle.votes?.map((vote) {
+      final List<Vote>? votes = graphCircle.votes?.map((vote) {
             return Vote(
               id: vote.id,
               voter: vote.voter,
               elected: vote.elected,
             );
           }).toList() ??
-          [];
+          null;
 
-      final List<CircleVoter> circleVoters = graphCircle.voters?.map((voter) {
-            return CircleVoter(
-              id: voter.id,
-              voter: voter.voter,
-              committed: voter.committed,
-              rejected: voter.rejected,
-              createdAt: voter.createdAt != null
-                  ? DateTime.parse(voter.createdAt!)
-                  : null,
-              updatedAt: voter.updatedAt != null
-                  ? DateTime.parse(voter.updatedAt!)
-                  : null,
-            );
-          }).toList() ??
-          [];
+      final List<CircleVoter> voters = graphCircle.voters.map((voter) {
+        return CircleVoter(
+          id: voter.id,
+          voter: voter.voter,
+          committed: voter.committed,
+          rejected: voter.rejected,
+          createdAt:
+              voter.createdAt != null ? DateTime.parse(voter.createdAt!) : null,
+          updatedAt:
+              voter.updatedAt != null ? DateTime.parse(voter.updatedAt!) : null,
+        );
+      }).toList();
 
       return Circle(
         id: graphCircle.id,
         name: graphCircle.name,
         votes: votes,
-        voters: circleVoters,
+        voters: voters,
         private: graphCircle.private,
         createdFrom: graphCircle.createdFrom,
       );

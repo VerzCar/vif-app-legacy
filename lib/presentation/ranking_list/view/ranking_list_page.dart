@@ -14,6 +14,8 @@ class RankingListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return SafeArea(
       child: CustomScrollView(
+        shrinkWrap: true,
+        scrollDirection: Axis.vertical,
         physics: const BouncingScrollPhysics(),
         slivers: [
           SliverPadding(

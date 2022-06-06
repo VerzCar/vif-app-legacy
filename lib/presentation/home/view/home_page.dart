@@ -5,7 +5,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:vote_your_face/application/user/bloc/user_bloc.dart';
 import 'package:vote_your_face/presentation/home/cubit/home_cubit.dart';
 import 'package:vote_your_face/presentation/home/view/home_view.dart';
-import 'package:vote_your_face/presentation/routes/router.gr.dart';
+import 'package:vote_your_face/presentation/routes/router.dart';
 import 'package:vote_your_face/application/authentication/authentication.dart';
 
 import 'package:vote_your_face/injection.dart';
@@ -18,7 +18,7 @@ class HomePage extends StatelessWidget {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         if (state.status == AuthFlowStatus.unauthenticated) {
-          context.router.replace(const LoginPageRoute());
+          context.router.replace(const LoginRoute());
         }
       },
       child: MultiBlocProvider(
