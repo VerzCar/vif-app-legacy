@@ -11,17 +11,19 @@ class CircleSelection extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Row(
-      mainAxisAlignment: MainAxisAlignment.start,
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const Chip(
-          padding: EdgeInsets.all(10),
-          label: Text('Circle:'),
+        const Flexible(
+          child: Chip(
+            padding: EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            label: Text('Circle:'),
+          ),
         ),
-        Expanded(
-          child: TextFormField(
+        const SizedBox(width: 10),
+        Flexible(
+          flex: 2,
+          child: TextField(
             decoration: InputDecoration(
-              focusedBorder: const OutlineInputBorder(),
-              border: const OutlineInputBorder(),
               labelText: circleName,
               suffixIcon: const Icon(Icons.keyboard_arrow_right),
             ),
