@@ -3,7 +3,7 @@ part of 'home_cubit.dart';
 enum HomeTab {
   circleDetail,
   search,
-  settings,
+  profile,
 }
 
 class HomeState extends Equatable {

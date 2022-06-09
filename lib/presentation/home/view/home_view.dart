@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:vote_your_face/presentation/circle_detail/view/circle_detail_page.dart';
 import 'package:vote_your_face/presentation/home/cubit/home_cubit.dart';
+import 'package:vote_your_face/presentation/profile/profile.dart';
 import 'package:vote_your_face/presentation/search/search.dart';
-import 'package:vote_your_face/presentation/settings/view/settings_page.dart';
 
 class HomeView extends StatelessWidget {
   const HomeView({Key? key}) : super(key: key);
@@ -20,7 +20,7 @@ class HomeView extends StatelessWidget {
             id: 0,
           ),
           SearchPage(),
-          SettingsPage()
+          ProfilePage()
         ],
       ),
       bottomNavigationBar: BottomAppBar(
@@ -40,8 +40,8 @@ class HomeView extends StatelessWidget {
             ),
             _HomeTabButton(
               groupValue: selectedTab,
-              value: HomeTab.settings,
-              icon: const Icon(Icons.settings),
+              value: HomeTab.profile,
+              icon: const Icon(Icons.person),
             ),
           ],
         ),

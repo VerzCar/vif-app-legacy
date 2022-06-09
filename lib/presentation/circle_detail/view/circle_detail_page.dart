@@ -15,7 +15,7 @@ class CircleDetailPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocProvider<CircleDetailBloc>(
       create: (BuildContext context) =>
-          sl<CircleDetailBloc>()..add(const CircleDetailStarted(34)),
+          sl<CircleDetailBloc>()..add(const CircleDetailStarted(1)),
       child: const CircleDetailView(),
     );
   }

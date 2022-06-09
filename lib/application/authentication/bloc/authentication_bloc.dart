@@ -40,10 +40,7 @@ class AuthenticationBloc
       case AuthFlowStatus.unauthenticated:
         return emit(const AuthenticationState.unauthenticated());
       case AuthFlowStatus.authenticated:
-        final user = await _tryGetUser();
-        return emit(user != null
-            ? AuthenticationState.authenticated(user)
-            : const AuthenticationState.unauthenticated());
+        return emit(const AuthenticationState.authenticated());
       default:
         return emit(const AuthenticationState.unknown());
     }
@@ -55,15 +52,6 @@ class AuthenticationBloc
   ) async {
     try {
       await _authenticationRepository.logOut();
-    } catch (_) {
-      return null;
-    }
-  }
-
-  Future<User?> _tryGetUser() async {
-    try {
-      final user = await _authenticationRepository.user();
-      return user;
     } catch (_) {
       return null;
     }

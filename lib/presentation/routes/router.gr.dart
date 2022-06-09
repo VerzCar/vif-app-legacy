@@ -56,6 +56,10 @@ class _$AppRouter extends RootStackRouter {
     SettingsRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const SettingsPage());
+    },
+    ProfileRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const ProfilePage());
     }
   };
 
@@ -69,7 +73,8 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(CircleDetailRoute.name, path: '/circle-detail-page/:id'),
         RouteConfig(RankingListRoute.name, path: '/ranking-list-page'),
         RouteConfig(SearchRoute.name, path: '/search-page'),
-        RouteConfig(SettingsRoute.name, path: '/settings-page')
+        RouteConfig(SettingsRoute.name, path: '/settings-page'),
+        RouteConfig(ProfileRoute.name, path: '/profile-page')
       ];
 }
 
@@ -162,4 +167,12 @@ class SettingsRoute extends PageRouteInfo<void> {
   const SettingsRoute() : super(SettingsRoute.name, path: '/settings-page');
 
   static const String name = 'SettingsRoute';
+}
+
+/// generated route for
+/// [ProfilePage]
+class ProfileRoute extends PageRouteInfo<void> {
+  const ProfileRoute() : super(ProfileRoute.name, path: '/profile-page');
+
+  static const String name = 'ProfileRoute';
 }

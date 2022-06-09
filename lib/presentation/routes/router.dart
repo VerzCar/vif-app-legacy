@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:vote_your_face/presentation/circle_detail/view/circle_detail_page.dart';
 import 'package:vote_your_face/presentation/home/home.dart';
 import 'package:vote_your_face/presentation/login/login.dart';
+import 'package:vote_your_face/presentation/profile/profile.dart';
 import 'package:vote_your_face/presentation/ranking_list/ranking_list.dart';
 import 'package:vote_your_face/presentation/search/search.dart';
 import 'package:vote_your_face/presentation/settings/view/settings_page.dart';
@@ -27,6 +28,7 @@ part 'router.gr.dart';
     AutoRoute(page: RankingListPage, initial: false),
     AutoRoute(page: SearchPage, initial: false),
     AutoRoute(page: SettingsPage, initial: false),
+    AutoRoute(page: ProfilePage, initial: false),
   ],
 )
 class AppRouter extends _$AppRouter {}

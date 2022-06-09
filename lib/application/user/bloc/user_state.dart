@@ -1,13 +1,13 @@
 part of 'user_bloc.dart';
 
 class UserState extends Equatable {
-  const UserState._({this.metaUser});
+  const UserState._({this.user});
 
-  const UserState.metaDataLoaded(MetaUser metaUser)
-      : this._(metaUser: metaUser);
+  const UserState.metaDataLoaded(User user)
+      : this._(user: user);
 
-  final MetaUser? metaUser;
+  final User? user;
 
   @override
-  List<Object?> get props => [metaUser];
+  List<Object?> get props => [user];
 }

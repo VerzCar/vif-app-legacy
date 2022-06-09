@@ -16,18 +16,18 @@ class SettingsPage extends StatelessWidget {
           children: <Widget>[
             Builder(
               builder: (context) {
-                final userId = context.select(
-                  (AuthenticationBloc bloc) => bloc.state.user.id,
+                final status = context.select(
+                  (AuthenticationBloc bloc) => bloc.state.status,
                 );
-                final metaUser = context.select(
-                  (UserBloc bloc) => bloc.state.metaUser,
+                final user = context.select(
+                  (UserBloc bloc) => bloc.state.user,
                 );
                 return Column(
                   children: [
-                    Text('UserID: $userId'),
-                    Text('Meta User id: ${metaUser?.id}'),
-                    Text('Meta User username: ${metaUser?.username}'),
-                    Text('Meta User gender: ${metaUser?.gender}'),
+                    Text('User status: $status'),
+                    Text('User id: ${user?.id}'),
+                    Text('User username: ${user?.username}'),
+                    Text('User gender: ${user?.gender}'),
                   ],
                 );
               },

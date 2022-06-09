@@ -1,15 +1,36 @@
-query user{
+query user {
     user {
         id
         username
         firstName
         lastName
         gender
+        bio {
+            id
+            description
+        }
         locale {
+            id
             lcidString
+            languageCode
+        }
+        address {
+            id
+            address
+            city
+            country {
+                id
+                name
+                alpha2
+            }
+            postalCode
         }
         contact {
+            id
             email
+            phoneNumber
+            phoneNumber2
+            web
         }
     }
 }

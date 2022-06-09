@@ -36,7 +36,7 @@ class CircleDetailView extends StatelessWidget {
                 circle: state.circle,
               );
             default:
-              return const Text("circle default state");
+              return const Center(child: Text("circle default state"));
           }
         },
       ),

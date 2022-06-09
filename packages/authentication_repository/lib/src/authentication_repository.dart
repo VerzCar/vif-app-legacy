@@ -299,18 +299,18 @@ class AuthenticationRepository {
     }
   }
 
-  Future<User> user() async {
-    try {
-      final authUser = await Amplify.Auth.getCurrentUser();
-      final user = User(
-        id: authUser.userId,
-        username: authUser.username,
-      );
-      return user;
-    } catch (_) {
-      throw CurrentUserFailure();
-    }
-  }
+  // Future<User> user() async {
+  //   try {
+  //     final authUser = await Amplify.Auth.getCurrentUser();
+  //     final user = User(
+  //       id: authUser.userId,
+  //       username: authUser.username,
+  //     );
+  //     return user;
+  //   } catch (_) {
+  //     throw CurrentUserFailure();
+  //   }
+  // }
 
   void dispose() => _authStateController.close();
 
