@@ -18,7 +18,8 @@ class HomePage extends StatelessWidget {
     return BlocListener<AuthenticationBloc, AuthenticationState>(
       listener: (context, state) {
         if (state.status == AuthFlowStatus.unauthenticated) {
-          context.router.replace(const LoginRoute());
+          context.router.pushAndPopUntil(const LoginRoute(),
+              predicate: (Route<dynamic> route) => false);
         }
       },
       child: MultiBlocProvider(

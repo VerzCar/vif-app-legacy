@@ -14,7 +14,7 @@ class SignUpForm extends StatelessWidget {
     return BlocListener<SignUpCubit, SignUpState>(
       listener: (context, state) {
         if (state.status.isSubmissionSuccess && state.signUpComplete) {
-          context.router.replace(const HomeRoute());
+          context.router.replace(const SplashRoute());
         } else if (state.status.isSubmissionSuccess && !state.signUpComplete) {
           context.router.replace(const VerificationRoute());
         } else if (state.status.isSubmissionFailure) {

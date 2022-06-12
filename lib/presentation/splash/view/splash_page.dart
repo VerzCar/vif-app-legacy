@@ -17,7 +17,8 @@ class SplashPage extends StatelessWidget {
             context.router.replace(const HomeRoute());
             break;
           case AuthFlowStatus.unauthenticated:
-            context.router.replace(const LoginRoute());
+            context.router.pushAndPopUntil(const LoginRoute(),
+                predicate: (Route<dynamic> route) => false);
             break;
           default:
             break;

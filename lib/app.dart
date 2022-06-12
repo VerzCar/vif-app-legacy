@@ -30,7 +30,7 @@ class App extends StatelessWidget {
         routerDelegate: _appRouter.delegate(),
         debugShowCheckedModeBanner: false,
         title: 'Vote your face',
-        theme: ThemeData(visualDensity: VisualDensity.adaptivePlatformDensity),
+        theme: AppTheme.lightTheme,
         darkTheme: AppTheme.darkTheme,
         themeMode: ThemeMode.light,
       ),

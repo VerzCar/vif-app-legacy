@@ -242,7 +242,7 @@ class AuthenticationRepository {
       );
 
       if (result.isSignedIn) {
-        _authFlowStatus = AuthFlowStatus.authenticated;
+        this._checkAuthStatus();
       } else {
         print('User could not be signed in - ${result.toString()}');
         throw const LogInWithEmailAndPasswordFailure();
@@ -332,10 +332,10 @@ class AuthenticationRepository {
         _authFlowStatus = AuthFlowStatus.authenticated;
         return;
       }
-    } catch (_) {
-      print('Check auth state failure');
+    } catch (e) {
+      print('Check auth state failure $e');
     }
-    _authFlowStatus = AuthFlowStatus.authenticated;
+    _authFlowStatus = AuthFlowStatus.unauthenticated;
   }
 
   set _authFlowStatus(AuthFlowStatus status) {
