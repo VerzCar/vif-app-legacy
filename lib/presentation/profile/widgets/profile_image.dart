@@ -1,29 +1,87 @@
 import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:vote_your_face/presentation/routes/router.dart';
 
 class ProfileImage extends StatelessWidget {
-  const ProfileImage({Key? key}) : super(key: key);
+  const ProfileImage({
+    Key? key,
+    this.isEditable = false,
+  }) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
+  final bool isEditable;
+
+  Container imageContainer(Widget? child) {
     return Container(
       padding: const EdgeInsets.all(4.0),
       decoration: BoxDecoration(
         color: Colors.black,
         borderRadius: BorderRadius.circular(10.0),
       ),
+      child: child,
+    );
+  }
+
+  Image image() {
+    return Image.network(
+      'https://randomuser.me/api/portraits/men/' + 18.toString() + '.jpg',
+      fit: BoxFit.fill,
+      height: 150,
+      width: 150,
+    );
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return imageContainer(
+      isEditable
+          ? _ProfileImageEditView(image: image())
+          : _ProfileImageView(image: image()),
+    );
+  }
+}
+
+class _ProfileImageView extends StatelessWidget {
+  const _ProfileImageView({
+    Key? key,
+    required this.image,
+  }) : super(key: key);
+
+  final Image image;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        context.router.push(const ProfileImageRoute());
+      },
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(8.0),
+        child: image,
+      ),
+    );
+  }
+}
+
+class _ProfileImageEditView extends StatelessWidget {
+  const _ProfileImageEditView({
+    Key? key,
+    required this.image,
+  }) : super(key: key);
+
+  final Image image;
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        context.router.push(const ProfileEditImageRoute());
+      },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Stack(
           alignment: Alignment.bottomRight,
           children: [
-            Image.network(
-              'https://randomuser.me/api/portraits/men/' +
-                  18.toString() +
-                  '.jpg',
-              fit: BoxFit.fill,
-              height: 150,
-              width: 150,
-            ),
+            image,
             Padding(
               padding: const EdgeInsets.all(3.0),
               child: Container(

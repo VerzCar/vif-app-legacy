@@ -60,6 +60,34 @@ class _$AppRouter extends RootStackRouter {
     ProfileRoute.name: (routeData) {
       return MaterialPageX<dynamic>(
           routeData: routeData, child: const ProfilePage());
+    },
+    ProfileImageRoute.name: (routeData) {
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const ProfileImagePage(),
+          transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+          durationInMilliseconds: 200,
+          opaque: true,
+          barrierDismissible: false);
+    },
+    ProfileEditRoute.name: (routeData) {
+      final args = routeData.argsAs<ProfileEditRouteArgs>();
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: ProfileEditPage(key: args.key, user: args.user),
+          transitionsBuilder: TransitionsBuilders.slideBottom,
+          durationInMilliseconds: 200,
+          opaque: true,
+          barrierDismissible: false);
+    },
+    ProfileEditImageRoute.name: (routeData) {
+      return CustomPage<dynamic>(
+          routeData: routeData,
+          child: const ProfileEditImagePage(),
+          transitionsBuilder: TransitionsBuilders.fadeIn,
+          durationInMilliseconds: 200,
+          opaque: true,
+          barrierDismissible: false);
     }
   };
 
@@ -74,7 +102,11 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(RankingListRoute.name, path: '/ranking-list-page'),
         RouteConfig(SearchRoute.name, path: '/search-page'),
         RouteConfig(SettingsRoute.name, path: '/settings-page'),
-        RouteConfig(ProfileRoute.name, path: '/profile-page')
+        RouteConfig(ProfileRoute.name, path: '/profile-page'),
+        RouteConfig(ProfileImageRoute.name, path: '/profile-image-page'),
+        RouteConfig(ProfileEditRoute.name, path: '/profile-edit-page'),
+        RouteConfig(ProfileEditImageRoute.name,
+            path: '/profile-edit-image-page')
       ];
 }
 
@@ -175,4 +207,46 @@ class ProfileRoute extends PageRouteInfo<void> {
   const ProfileRoute() : super(ProfileRoute.name, path: '/profile-page');
 
   static const String name = 'ProfileRoute';
+}
+
+/// generated route for
+/// [ProfileImagePage]
+class ProfileImageRoute extends PageRouteInfo<void> {
+  const ProfileImageRoute()
+      : super(ProfileImageRoute.name, path: '/profile-image-page');
+
+  static const String name = 'ProfileImageRoute';
+}
+
+/// generated route for
+/// [ProfileEditPage]
+class ProfileEditRoute extends PageRouteInfo<ProfileEditRouteArgs> {
+  ProfileEditRoute({Key? key, required User user})
+      : super(ProfileEditRoute.name,
+            path: '/profile-edit-page',
+            args: ProfileEditRouteArgs(key: key, user: user));
+
+  static const String name = 'ProfileEditRoute';
+}
+
+class ProfileEditRouteArgs {
+  const ProfileEditRouteArgs({this.key, required this.user});
+
+  final Key? key;
+
+  final User user;
+
+  @override
+  String toString() {
+    return 'ProfileEditRouteArgs{key: $key, user: $user}';
+  }
+}
+
+/// generated route for
+/// [ProfileEditImagePage]
+class ProfileEditImageRoute extends PageRouteInfo<void> {
+  const ProfileEditImageRoute()
+      : super(ProfileEditImageRoute.name, path: '/profile-edit-image-page');
+
+  static const String name = 'ProfileEditImageRoute';
 }

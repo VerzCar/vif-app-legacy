@@ -1,9 +1,12 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
+import 'package:user_repository/user_repository.dart';
 import 'package:vote_your_face/presentation/circle_detail/view/circle_detail_page.dart';
 import 'package:vote_your_face/presentation/home/home.dart';
 import 'package:vote_your_face/presentation/login/login.dart';
 import 'package:vote_your_face/presentation/profile/profile.dart';
+import 'package:vote_your_face/presentation/profile/view/edit/profile_edit_image_page.dart';
+import 'package:vote_your_face/presentation/profile/view/edit/profile_edit_page.dart';
 import 'package:vote_your_face/presentation/ranking_list/ranking_list.dart';
 import 'package:vote_your_face/presentation/search/search.dart';
 import 'package:vote_your_face/presentation/settings/view/settings_page.dart';
@@ -29,6 +32,18 @@ part 'router.gr.dart';
     AutoRoute(page: SearchPage, initial: false),
     AutoRoute(page: SettingsPage, initial: false),
     AutoRoute(page: ProfilePage, initial: false),
+    CustomRoute(
+        page: ProfileImagePage,
+        transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
+        durationInMilliseconds: 200),
+    CustomRoute(
+        page: ProfileEditPage,
+        transitionsBuilder: TransitionsBuilders.slideBottom,
+        durationInMilliseconds: 200),
+    CustomRoute(
+        page: ProfileEditImagePage,
+        transitionsBuilder: TransitionsBuilders.fadeIn,
+        durationInMilliseconds: 200),
   ],
 )
 class AppRouter extends _$AppRouter {}
