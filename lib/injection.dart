@@ -4,6 +4,7 @@ import 'package:vote_circle_repository/vote_circle_repository.dart';
 import 'package:vote_your_face/application/authentication/authentication.dart';
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:vote_your_face/application/user/bloc/user_bloc.dart';
+import 'package:vote_your_face/presentation/camera/bloc/camera_bloc.dart';
 import 'package:vote_your_face/presentation/circle_detail/bloc/circle_detail_bloc.dart';
 import 'package:vote_your_face/presentation/login/login.dart';
 import 'package:vote_your_face/presentation/profile/cubit/profile_cubit.dart';
@@ -21,6 +22,7 @@ Future<void> init() async {
   sl.registerFactory(() => SignUpCubit(sl()));
   sl.registerFactory(() => VerificationCubit(sl()));
   sl.registerFactory(() => ProfileCubit(sl()));
+  sl.registerFactory(() => CameraBloc());
 
   //! repos
   sl.registerLazySingleton<AuthenticationRepository>(

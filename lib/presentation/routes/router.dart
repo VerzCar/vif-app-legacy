@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:user_repository/user_repository.dart';
+import 'package:vote_your_face/presentation/camera/view/camera_page.dart';
 import 'package:vote_your_face/presentation/circle_detail/view/circle_detail_page.dart';
 import 'package:vote_your_face/presentation/home/home.dart';
 import 'package:vote_your_face/presentation/login/login.dart';
@@ -44,6 +45,7 @@ part 'router.gr.dart';
         page: ProfileEditImagePage,
         transitionsBuilder: TransitionsBuilders.fadeIn,
         durationInMilliseconds: 200),
+    AutoRoute(page: CameraPage, initial: false),
   ],
 )
 class AppRouter extends _$AppRouter {}

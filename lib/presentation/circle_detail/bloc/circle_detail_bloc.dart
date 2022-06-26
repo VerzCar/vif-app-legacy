@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:vote_circle_repository/vote_circle_repository.dart';

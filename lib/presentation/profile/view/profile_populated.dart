@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:vote_your_face/presentation/profile/widgets/multiline_textform_field.dart';
 import 'package:vote_your_face/presentation/profile/widgets/profile_image.dart';
 import 'package:vote_your_face/presentation/profile/widgets/text_block.dart';
 import 'package:vote_your_face/presentation/routes/router.dart';

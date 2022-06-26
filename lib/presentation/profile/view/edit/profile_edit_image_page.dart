@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:auto_route/auto_route.dart';
+import 'package:vote_your_face/presentation/routes/router.dart';
 
 class ProfileEditImagePage extends StatelessWidget {
   const ProfileEditImagePage({Key? key}) : super(key: key);
@@ -34,7 +36,7 @@ class ProfileEditImagePage extends StatelessWidget {
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 TextButton.icon(
-                  onPressed: () => {},
+                  onPressed: () => {context.router.push(const CameraRoute())},
                   icon: const Icon(Icons.camera_alt_outlined),
                   label: const Text("Open camera"),
                 ),
@@ -43,6 +45,17 @@ class ProfileEditImagePage extends StatelessWidget {
                   onPressed: () => {},
                   icon: const Icon(Icons.image_outlined),
                   label: const Text("Select from album"),
+                ),
+                const Divider(),
+                TextButton.icon(
+                  onPressed: () => {},
+                  icon: const Icon(Icons.delete),
+                  label: const Text(
+                    "Delete profile image",
+                    style: TextStyle(
+                      color: Colors.red,
+                    ),
+                  ),
                 ),
               ],
             ),

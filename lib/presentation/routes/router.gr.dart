@@ -88,6 +88,10 @@ class _$AppRouter extends RootStackRouter {
           durationInMilliseconds: 200,
           opaque: true,
           barrierDismissible: false);
+    },
+    CameraRoute.name: (routeData) {
+      return MaterialPageX<dynamic>(
+          routeData: routeData, child: const CameraPage());
     }
   };
 
@@ -106,7 +110,8 @@ class _$AppRouter extends RootStackRouter {
         RouteConfig(ProfileImageRoute.name, path: '/profile-image-page'),
         RouteConfig(ProfileEditRoute.name, path: '/profile-edit-page'),
         RouteConfig(ProfileEditImageRoute.name,
-            path: '/profile-edit-image-page')
+            path: '/profile-edit-image-page'),
+        RouteConfig(CameraRoute.name, path: '/camera-page')
       ];
 }
 
@@ -249,4 +254,12 @@ class ProfileEditImageRoute extends PageRouteInfo<void> {
       : super(ProfileEditImageRoute.name, path: '/profile-edit-image-page');
 
   static const String name = 'ProfileEditImageRoute';
+}
+
+/// generated route for
+/// [CameraPage]
+class CameraRoute extends PageRouteInfo<void> {
+  const CameraRoute() : super(CameraRoute.name, path: '/camera-page');
+
+  static const String name = 'CameraRoute';
 }
