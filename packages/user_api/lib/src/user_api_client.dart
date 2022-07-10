@@ -1,11 +1,14 @@
 import 'package:authentication_repository/authentication_repository.dart';
 import 'package:graphql/client.dart';
 import 'package:logger/logger.dart';
+import 'package:user_api/src/graph/schema.graphql.dart';
+import 'package:user_api/src/graph/updateUserProfile.graphql.dart';
 import 'package:user_api/src/graph/user.graphql.dart';
-import 'package:user_api/src/models/address.dart';
 import 'package:user_api/user_api.dart';
 
 class QueryUserFailure implements Exception {}
+
+class MutationUpdateUserProfileFailure implements Exception {}
 
 class UserApiClient {
   UserApiClient({required authenticationRepository})
@@ -15,8 +18,12 @@ class UserApiClient {
   final AuthenticationRepository _authenticationRepository;
 
   GraphQLClient _client() {
+    // final _httpLink = HttpLink(
+    //   'http://127.0.0.1:8080/query',
+    // );
+
     final _httpLink = HttpLink(
-      'http://127.0.0.1:8080/query',
+      'https://user.dev.vyf.passoavanti.eu/query',
     );
 
     final _authLink = AuthLink(
@@ -41,66 +48,56 @@ class UserApiClient {
       logger.i(result.exception);
 
       if (result.hasException) {
-        print(result.exception?.linkException);
-        print(result.exception?.graphqlErrors.first);
+        logger.i(result.exception?.linkException);
+        logger.i(result.exception?.graphqlErrors.first);
         throw QueryUserFailure();
       }
 
-      final graphUser = result.parsedData!.user;
-
-      final Locale? locale = graphUser.locale != null
-          ? Locale(
-              id: graphUser.locale!.id,
-              lcidString: graphUser.locale!.lcidString,
-              languageCode: graphUser.locale!.languageCode,
-            )
-          : null;
-
-      final Bio? bio = graphUser.bio != null
-          ? Bio(
-              id: graphUser.bio!.id,
-              description: graphUser.bio!.description,
-            )
-          : null;
-
-      final Contact? contact = graphUser.contact != null
-          ? Contact(
-              id: graphUser.contact!.id,
-              phoneNumber: graphUser.contact!.phoneNumber,
-              phoneNumber2: graphUser.contact!.phoneNumber2,
-              web: graphUser.contact!.web,
-              email: graphUser.contact!.email,
-            )
-          : null;
-
-      final Address? address = graphUser.address != null
-          ? Address(
-              id: graphUser.address!.id,
-              address: graphUser.address!.address,
-              city: graphUser.address!.city,
-              postalCode: graphUser.address!.postalCode,
-              country: Country(
-                id: graphUser.address!.country.id,
-                name: graphUser.address!.country.name,
-                alpha2: graphUser.address!.country.alpha2,
-              ),
-            )
-          : null;
-
-      return User(
-        id: graphUser.id,
-        username: graphUser.username ?? '',
-        firstName: graphUser.firstName ?? '',
-        lastName: graphUser.lastName ?? '',
-        gender: graphUser.gender.toString(),
-        bio: bio,
-        locale: locale,
-        address: address,
-        contact: contact,
-      );
+      final queryUser = result.parsedData!.user;
+      return User.fromQuery(queryUser);
     } catch (e) {
       logger.e(e);
       throw QueryUserFailure();
+    }
+  }
+
+  // updates the users profile and returns the updated profile data
+  Future<Profile> updateUserProfile(ProfileInput profileInput) async {
+    var logger = Logger();
+
+    try {
+      final client = _client();
+      final result = await client.mutate$updateUserProfile(
+        Options$Mutation$updateUserProfile(
+          variables: Variables$Mutation$updateUserProfile(
+            userInput: Input$UserUpdateInput(
+              profile: Input$ProfileInput(
+                bio: profileInput.bio,
+                whyVoteMe: profileInput.whyVoteMe,
+                imageSrc: profileInput.imageSrc,
+              ),
+            ),
+          ),
+        ),
+      );
+
+      if (result.hasException) {
+        logger.i(result.exception?.linkException);
+        logger.i(result.exception?.graphqlErrors.first);
+        throw MutationUpdateUserProfileFailure();
+      }
+
+      final profile = result.parsedData!.updateUser.profile!;
+
+      return Profile(
+        id: profile.id,
+        bio: profile.bio,
+        whyVoteMe: profile.whyVoteMe,
+        imageSrc: profile.imageSrc,
+      );
+    } catch (e) {
+      logger.e(e);
+      throw MutationUpdateUserProfileFailure();
     }
   }
 }

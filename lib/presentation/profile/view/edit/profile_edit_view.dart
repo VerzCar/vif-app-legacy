@@ -31,13 +31,13 @@ class ProfileEditView extends StatelessWidget {
             const SizedBox(height: 10),
             MultiLineTextFormField(
               label: 'Why vote me',
-              initialValue: user.bio.description,
+              initialValue: user.profile.whyVoteMe,
               helperText: 'max. 200',
             ),
             const SizedBox(height: 20),
             MultiLineTextFormField(
               label: 'Biographie',
-              initialValue: user.bio.description,
+              initialValue: user.profile.bio,
             ),
           ],
         ),

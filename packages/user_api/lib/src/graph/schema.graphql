@@ -15,11 +15,6 @@ type Address {
     updatedAt: Time!
 }
 
-type Bio {
-    description: String!
-    id: ID!
-}
-
 type Contact {
     createdAt: Time!
     email: String!
@@ -48,6 +43,14 @@ type Locale {
 
 type Mutation {
     ping: String!
+    updateUser(user: UserUpdateInput!): User!
+}
+
+type Profile {
+    bio: String!
+    id: ID!
+    imageSrc: String!
+    whyVoteMe: String!
 }
 
 type Query {
@@ -57,13 +60,13 @@ type Query {
 
 type User {
     address: Address
-    bio: Bio
     contact: Contact
     firstName: String
     gender: Gender
     id: ID!
     lastName: String
     locale: Locale
+    profile: Profile
     username: String
 }
 
@@ -82,10 +85,6 @@ input AddressInput {
     postalCode: String!
 }
 
-input BioInput {
-    description: String!
-}
-
 input ContactInput {
     email: String!
     phoneNumber: String!
@@ -95,13 +94,19 @@ input ContactInput {
     web: String
 }
 
+input ProfileInput {
+    bio: String
+    imageSrc: String
+    whyVoteMe: String
+}
+
 input UserUpdateInput {
     address: AddressInput
-    bio: BioInput
     contact: ContactInput
     firstName: String
     gender: Gender
     lastName: String
     locale: String
+    profile: ProfileInput
     username: String
 }

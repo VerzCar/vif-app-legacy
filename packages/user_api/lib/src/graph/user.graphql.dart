@@ -90,7 +90,7 @@ const queryDocumentuser = DocumentNode(definitions: [
                   directives: [],
                   selectionSet: null),
               FieldNode(
-                  name: NameNode(value: 'bio'),
+                  name: NameNode(value: 'profile'),
                   alias: null,
                   arguments: [],
                   directives: [],
@@ -102,7 +102,19 @@ const queryDocumentuser = DocumentNode(definitions: [
                         directives: [],
                         selectionSet: null),
                     FieldNode(
-                        name: NameNode(value: 'description'),
+                        name: NameNode(value: 'bio'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null),
+                    FieldNode(
+                        name: NameNode(value: 'whyVoteMe'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null),
+                    FieldNode(
+                        name: NameNode(value: 'imageSrc'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -357,7 +369,7 @@ class Query$user$user {
       this.firstName,
       this.lastName,
       this.gender,
-      this.bio,
+      this.profile,
       this.locale,
       this.address,
       this.contact,
@@ -378,7 +390,7 @@ class Query$user$user {
   @JsonKey(unknownEnumValue: Enum$Gender.$unknown)
   final Enum$Gender? gender;
 
-  final Query$user$user$bio? bio;
+  final Query$user$user$profile? profile;
 
   final Query$user$user$locale? locale;
 
@@ -396,7 +408,7 @@ class Query$user$user {
     final l$firstName = firstName;
     final l$lastName = lastName;
     final l$gender = gender;
-    final l$bio = bio;
+    final l$profile = profile;
     final l$locale = locale;
     final l$address = address;
     final l$contact = contact;
@@ -407,7 +419,7 @@ class Query$user$user {
       l$firstName,
       l$lastName,
       l$gender,
-      l$bio,
+      l$profile,
       l$locale,
       l$address,
       l$contact,
@@ -435,9 +447,9 @@ class Query$user$user {
     final l$gender = gender;
     final lOther$gender = other.gender;
     if (l$gender != lOther$gender) return false;
-    final l$bio = bio;
-    final lOther$bio = other.bio;
-    if (l$bio != lOther$bio) return false;
+    final l$profile = profile;
+    final lOther$profile = other.profile;
+    if (l$profile != lOther$profile) return false;
     final l$locale = locale;
     final lOther$locale = other.locale;
     if (l$locale != lOther$locale) return false;
@@ -461,7 +473,7 @@ extension UtilityExtension$Query$user$user on Query$user$user {
           String? Function()? firstName,
           String? Function()? lastName,
           Enum$Gender? Function()? gender,
-          Query$user$user$bio? Function()? bio,
+          Query$user$user$profile? Function()? profile,
           Query$user$user$locale? Function()? locale,
           Query$user$user$address? Function()? address,
           Query$user$user$contact? Function()? contact,
@@ -472,7 +484,7 @@ extension UtilityExtension$Query$user$user on Query$user$user {
           firstName: firstName == null ? this.firstName : firstName(),
           lastName: lastName == null ? this.lastName : lastName(),
           gender: gender == null ? this.gender : gender(),
-          bio: bio == null ? this.bio : bio(),
+          profile: profile == null ? this.profile : profile(),
           locale: locale == null ? this.locale : locale(),
           address: address == null ? this.address : address(),
           contact: contact == null ? this.contact : contact(),
@@ -480,40 +492,57 @@ extension UtilityExtension$Query$user$user on Query$user$user {
 }
 
 @JsonSerializable(explicitToJson: true)
-class Query$user$user$bio {
-  Query$user$user$bio(
-      {required this.id, required this.description, required this.$__typename});
+class Query$user$user$profile {
+  Query$user$user$profile(
+      {required this.id,
+      required this.bio,
+      required this.whyVoteMe,
+      required this.imageSrc,
+      required this.$__typename});
 
   @override
-  factory Query$user$user$bio.fromJson(Map<String, dynamic> json) =>
-      _$Query$user$user$bioFromJson(json);
+  factory Query$user$user$profile.fromJson(Map<String, dynamic> json) =>
+      _$Query$user$user$profileFromJson(json);
 
   final int id;
 
-  final String description;
+  final String bio;
+
+  final String whyVoteMe;
+
+  final String imageSrc;
 
   @JsonKey(name: '__typename')
   final String $__typename;
 
-  Map<String, dynamic> toJson() => _$Query$user$user$bioToJson(this);
+  Map<String, dynamic> toJson() => _$Query$user$user$profileToJson(this);
   int get hashCode {
     final l$id = id;
-    final l$description = description;
+    final l$bio = bio;
+    final l$whyVoteMe = whyVoteMe;
+    final l$imageSrc = imageSrc;
     final l$$__typename = $__typename;
-    return Object.hashAll([l$id, l$description, l$$__typename]);
+    return Object.hashAll(
+        [l$id, l$bio, l$whyVoteMe, l$imageSrc, l$$__typename]);
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
-    if (!(other is Query$user$user$bio) || runtimeType != other.runtimeType)
+    if (!(other is Query$user$user$profile) || runtimeType != other.runtimeType)
       return false;
     final l$id = id;
     final lOther$id = other.id;
     if (l$id != lOther$id) return false;
-    final l$description = description;
-    final lOther$description = other.description;
-    if (l$description != lOther$description) return false;
+    final l$bio = bio;
+    final lOther$bio = other.bio;
+    if (l$bio != lOther$bio) return false;
+    final l$whyVoteMe = whyVoteMe;
+    final lOther$whyVoteMe = other.whyVoteMe;
+    if (l$whyVoteMe != lOther$whyVoteMe) return false;
+    final l$imageSrc = imageSrc;
+    final lOther$imageSrc = other.imageSrc;
+    if (l$imageSrc != lOther$imageSrc) return false;
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
     if (l$$__typename != lOther$$__typename) return false;
@@ -521,12 +550,18 @@ class Query$user$user$bio {
   }
 }
 
-extension UtilityExtension$Query$user$user$bio on Query$user$user$bio {
-  Query$user$user$bio copyWith(
-          {int? id, String? description, String? $__typename}) =>
-      Query$user$user$bio(
+extension UtilityExtension$Query$user$user$profile on Query$user$user$profile {
+  Query$user$user$profile copyWith(
+          {int? id,
+          String? bio,
+          String? whyVoteMe,
+          String? imageSrc,
+          String? $__typename}) =>
+      Query$user$user$profile(
           id: id == null ? this.id : id,
-          description: description == null ? this.description : description,
+          bio: bio == null ? this.bio : bio,
+          whyVoteMe: whyVoteMe == null ? this.whyVoteMe : whyVoteMe,
+          imageSrc: imageSrc == null ? this.imageSrc : imageSrc,
           $__typename: $__typename == null ? this.$__typename : $__typename);
 }
 

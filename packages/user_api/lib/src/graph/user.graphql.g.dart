@@ -25,9 +25,10 @@ Query$user$user _$Query$user$userFromJson(Map<String, dynamic> json) =>
       lastName: json['lastName'] as String?,
       gender: $enumDecodeNullable(_$Enum$GenderEnumMap, json['gender'],
           unknownValue: Enum$Gender.$unknown),
-      bio: json['bio'] == null
+      profile: json['profile'] == null
           ? null
-          : Query$user$user$bio.fromJson(json['bio'] as Map<String, dynamic>),
+          : Query$user$user$profile.fromJson(
+              json['profile'] as Map<String, dynamic>),
       locale: json['locale'] == null
           ? null
           : Query$user$user$locale.fromJson(
@@ -50,7 +51,7 @@ Map<String, dynamic> _$Query$user$userToJson(Query$user$user instance) =>
       'firstName': instance.firstName,
       'lastName': instance.lastName,
       'gender': _$Enum$GenderEnumMap[instance.gender],
-      'bio': instance.bio?.toJson(),
+      'profile': instance.profile?.toJson(),
       'locale': instance.locale?.toJson(),
       'address': instance.address?.toJson(),
       'contact': instance.contact?.toJson(),
@@ -64,18 +65,23 @@ const _$Enum$GenderEnumMap = {
   Enum$Gender.$unknown: r'$unknown',
 };
 
-Query$user$user$bio _$Query$user$user$bioFromJson(Map<String, dynamic> json) =>
-    Query$user$user$bio(
+Query$user$user$profile _$Query$user$user$profileFromJson(
+        Map<String, dynamic> json) =>
+    Query$user$user$profile(
       id: json['id'] as int,
-      description: json['description'] as String,
+      bio: json['bio'] as String,
+      whyVoteMe: json['whyVoteMe'] as String,
+      imageSrc: json['imageSrc'] as String,
       $__typename: json['__typename'] as String,
     );
 
-Map<String, dynamic> _$Query$user$user$bioToJson(
-        Query$user$user$bio instance) =>
+Map<String, dynamic> _$Query$user$user$profileToJson(
+        Query$user$user$profile instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'description': instance.description,
+      'bio': instance.bio,
+      'whyVoteMe': instance.whyVoteMe,
+      'imageSrc': instance.imageSrc,
       '__typename': instance.$__typename,
     };
 

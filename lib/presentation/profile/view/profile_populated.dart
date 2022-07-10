@@ -30,12 +30,12 @@ class ProfilePopulated extends StatelessWidget {
             const SizedBox(height: 10),
             TextBlock(
               title: 'Why vote me',
-              block: user.bio.description,
+              block: user.profile.whyVoteMe,
             ),
             const SizedBox(height: 20),
             TextBlock(
               title: 'Biographie',
-              block: user.bio.description,
+              block: user.profile.bio,
             ),
           ],
         ),

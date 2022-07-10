@@ -1,8 +1,5 @@
 import 'package:equatable/equatable.dart';
-import 'locale.dart';
-import 'contact.dart';
-import 'bio.dart';
-import 'address.dart';
+import 'package:user_repository/user_repository.dart';
 
 class User extends Equatable {
   const User({
@@ -11,7 +8,7 @@ class User extends Equatable {
     required this.firstName,
     required this.lastName,
     required this.gender,
-    required this.bio,
+    required this.profile,
     required this.locale,
     required this.address,
     required this.contact,
@@ -22,7 +19,7 @@ class User extends Equatable {
   final String firstName;
   final String lastName;
   final String gender;
-  final Bio bio;
+  final Profile profile;
   final Locale locale;
   final Address address;
   final Contact contact;
@@ -33,7 +30,7 @@ class User extends Equatable {
     firstName: '',
     lastName: '',
     gender: '',
-    bio: Bio.empty,
+    profile: Profile.empty,
     locale: Locale.empty,
     address: Address.empty,
     contact: Contact.empty,
@@ -48,7 +45,9 @@ class User extends Equatable {
         firstName,
         lastName,
         gender,
+        profile,
         locale,
+        address,
         contact,
       ];
 }

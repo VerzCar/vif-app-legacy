@@ -1,8 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'locale.dart';
-import 'contact.dart';
-import 'bio.dart';
-import 'address.dart';
+import 'package:user_api/src/graph/user.graphql.dart';
+import 'package:user_api/user_api.dart';
 
 class User extends Equatable {
   User({
@@ -11,7 +9,7 @@ class User extends Equatable {
     required this.firstName,
     required this.lastName,
     required this.gender,
-    this.bio,
+    this.profile,
     this.locale,
     this.address,
     this.contact,
@@ -22,10 +20,65 @@ class User extends Equatable {
   final String firstName;
   final String lastName;
   final String gender;
-  final Bio? bio;
+  final Profile? profile;
   final Locale? locale;
   final Address? address;
   final Contact? contact;
+
+  factory User.fromQuery(Query$user$user queryUser) {
+    final Locale? locale = queryUser.locale != null
+        ? Locale(
+            id: queryUser.locale!.id,
+            lcidString: queryUser.locale!.lcidString,
+            languageCode: queryUser.locale!.languageCode,
+          )
+        : null;
+
+    final Profile? profile = queryUser.profile != null
+        ? Profile(
+            id: queryUser.profile!.id,
+            bio: queryUser.profile!.bio,
+            whyVoteMe: queryUser.profile!.whyVoteMe,
+            imageSrc: queryUser.profile!.imageSrc,
+          )
+        : null;
+
+    final Contact? contact = queryUser.contact != null
+        ? Contact(
+            id: queryUser.contact!.id,
+            phoneNumber: queryUser.contact!.phoneNumber,
+            phoneNumber2: queryUser.contact!.phoneNumber2,
+            web: queryUser.contact!.web,
+            email: queryUser.contact!.email,
+          )
+        : null;
+
+    final Address? address = queryUser.address != null
+        ? Address(
+            id: queryUser.address!.id,
+            address: queryUser.address!.address,
+            city: queryUser.address!.city,
+            postalCode: queryUser.address!.postalCode,
+            country: Country(
+              id: queryUser.address!.country.id,
+              name: queryUser.address!.country.name,
+              alpha2: queryUser.address!.country.alpha2,
+            ),
+          )
+        : null;
+
+    return User(
+      id: queryUser.id,
+      username: queryUser.username ?? '',
+      firstName: queryUser.firstName ?? '',
+      lastName: queryUser.lastName ?? '',
+      gender: queryUser.gender.toString(),
+      profile: profile,
+      locale: locale,
+      address: address,
+      contact: contact,
+    );
+  }
 
   @override
   List<Object?> get props => [
@@ -34,7 +87,17 @@ class User extends Equatable {
         firstName,
         lastName,
         gender,
+        profile,
         locale,
+        address,
         contact,
       ];
+}
+
+class UpdateUserInput {
+  UpdateUserInput({
+    required this.profile,
+  });
+
+  final ProfileInput profile;
 }

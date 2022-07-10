@@ -5,9 +5,11 @@ query user {
         firstName
         lastName
         gender
-        bio {
+        profile {
             id
-            description
+            bio
+            whyVoteMe
+            imageSrc
         }
         locale {
             id

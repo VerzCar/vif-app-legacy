@@ -22,16 +22,6 @@ Map<String, dynamic> _$Input$AddressInputToJson(Input$AddressInput instance) =>
       'postalCode': instance.postalCode,
     };
 
-Input$BioInput _$Input$BioInputFromJson(Map<String, dynamic> json) =>
-    Input$BioInput(
-      description: json['description'] as String,
-    );
-
-Map<String, dynamic> _$Input$BioInputToJson(Input$BioInput instance) =>
-    <String, dynamic>{
-      'description': instance.description,
-    };
-
 Input$ContactInput _$Input$ContactInputFromJson(Map<String, dynamic> json) =>
     Input$ContactInput(
       email: json['email'] as String,
@@ -54,6 +44,20 @@ Map<String, dynamic> _$Input$ContactInputToJson(Input$ContactInput instance) =>
       'web': instance.web,
     };
 
+Input$ProfileInput _$Input$ProfileInputFromJson(Map<String, dynamic> json) =>
+    Input$ProfileInput(
+      bio: json['bio'] as String?,
+      imageSrc: json['imageSrc'] as String?,
+      whyVoteMe: json['whyVoteMe'] as String?,
+    );
+
+Map<String, dynamic> _$Input$ProfileInputToJson(Input$ProfileInput instance) =>
+    <String, dynamic>{
+      'bio': instance.bio,
+      'imageSrc': instance.imageSrc,
+      'whyVoteMe': instance.whyVoteMe,
+    };
+
 Input$UserUpdateInput _$Input$UserUpdateInputFromJson(
         Map<String, dynamic> json) =>
     Input$UserUpdateInput(
@@ -61,9 +65,6 @@ Input$UserUpdateInput _$Input$UserUpdateInputFromJson(
           ? null
           : Input$AddressInput.fromJson(
               json['address'] as Map<String, dynamic>),
-      bio: json['bio'] == null
-          ? null
-          : Input$BioInput.fromJson(json['bio'] as Map<String, dynamic>),
       contact: json['contact'] == null
           ? null
           : Input$ContactInput.fromJson(
@@ -73,6 +74,10 @@ Input$UserUpdateInput _$Input$UserUpdateInputFromJson(
           unknownValue: Enum$Gender.$unknown),
       lastName: json['lastName'] as String?,
       locale: json['locale'] as String?,
+      profile: json['profile'] == null
+          ? null
+          : Input$ProfileInput.fromJson(
+              json['profile'] as Map<String, dynamic>),
       username: json['username'] as String?,
     );
 
@@ -80,12 +85,12 @@ Map<String, dynamic> _$Input$UserUpdateInputToJson(
         Input$UserUpdateInput instance) =>
     <String, dynamic>{
       'address': instance.address?.toJson(),
-      'bio': instance.bio?.toJson(),
       'contact': instance.contact?.toJson(),
       'firstName': instance.firstName,
       'gender': _$Enum$GenderEnumMap[instance.gender],
       'lastName': instance.lastName,
       'locale': instance.locale,
+      'profile': instance.profile?.toJson(),
       'username': instance.username,
     };
 

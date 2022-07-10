@@ -53,34 +53,6 @@ class Input$AddressInput {
 }
 
 @JsonSerializable(explicitToJson: true)
-class Input$BioInput {
-  Input$BioInput({required this.description});
-
-  @override
-  factory Input$BioInput.fromJson(Map<String, dynamic> json) =>
-      _$Input$BioInputFromJson(json);
-
-  final String description;
-
-  Map<String, dynamic> toJson() => _$Input$BioInputToJson(this);
-  int get hashCode {
-    final l$description = description;
-    return Object.hashAll([l$description]);
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (!(other is Input$BioInput) || runtimeType != other.runtimeType)
-      return false;
-    final l$description = description;
-    final lOther$description = other.description;
-    if (l$description != lOther$description) return false;
-    return true;
-  }
-}
-
-@JsonSerializable(explicitToJson: true)
 class Input$ContactInput {
   Input$ContactInput(
       {required this.email,
@@ -156,15 +128,55 @@ class Input$ContactInput {
 }
 
 @JsonSerializable(explicitToJson: true)
+class Input$ProfileInput {
+  Input$ProfileInput({this.bio, this.imageSrc, this.whyVoteMe});
+
+  @override
+  factory Input$ProfileInput.fromJson(Map<String, dynamic> json) =>
+      _$Input$ProfileInputFromJson(json);
+
+  final String? bio;
+
+  final String? imageSrc;
+
+  final String? whyVoteMe;
+
+  Map<String, dynamic> toJson() => _$Input$ProfileInputToJson(this);
+  int get hashCode {
+    final l$bio = bio;
+    final l$imageSrc = imageSrc;
+    final l$whyVoteMe = whyVoteMe;
+    return Object.hashAll([l$bio, l$imageSrc, l$whyVoteMe]);
+  }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (!(other is Input$ProfileInput) || runtimeType != other.runtimeType)
+      return false;
+    final l$bio = bio;
+    final lOther$bio = other.bio;
+    if (l$bio != lOther$bio) return false;
+    final l$imageSrc = imageSrc;
+    final lOther$imageSrc = other.imageSrc;
+    if (l$imageSrc != lOther$imageSrc) return false;
+    final l$whyVoteMe = whyVoteMe;
+    final lOther$whyVoteMe = other.whyVoteMe;
+    if (l$whyVoteMe != lOther$whyVoteMe) return false;
+    return true;
+  }
+}
+
+@JsonSerializable(explicitToJson: true)
 class Input$UserUpdateInput {
   Input$UserUpdateInput(
       {this.address,
-      this.bio,
       this.contact,
       this.firstName,
       this.gender,
       this.lastName,
       this.locale,
+      this.profile,
       this.username});
 
   @override
@@ -172,8 +184,6 @@ class Input$UserUpdateInput {
       _$Input$UserUpdateInputFromJson(json);
 
   final Input$AddressInput? address;
-
-  final Input$BioInput? bio;
 
   final Input$ContactInput? contact;
 
@@ -186,26 +196,28 @@ class Input$UserUpdateInput {
 
   final String? locale;
 
+  final Input$ProfileInput? profile;
+
   final String? username;
 
   Map<String, dynamic> toJson() => _$Input$UserUpdateInputToJson(this);
   int get hashCode {
     final l$address = address;
-    final l$bio = bio;
     final l$contact = contact;
     final l$firstName = firstName;
     final l$gender = gender;
     final l$lastName = lastName;
     final l$locale = locale;
+    final l$profile = profile;
     final l$username = username;
     return Object.hashAll([
       l$address,
-      l$bio,
       l$contact,
       l$firstName,
       l$gender,
       l$lastName,
       l$locale,
+      l$profile,
       l$username
     ]);
   }
@@ -218,9 +230,6 @@ class Input$UserUpdateInput {
     final l$address = address;
     final lOther$address = other.address;
     if (l$address != lOther$address) return false;
-    final l$bio = bio;
-    final lOther$bio = other.bio;
-    if (l$bio != lOther$bio) return false;
     final l$contact = contact;
     final lOther$contact = other.contact;
     if (l$contact != lOther$contact) return false;
@@ -236,6 +245,9 @@ class Input$UserUpdateInput {
     final l$locale = locale;
     final lOther$locale = other.locale;
     if (l$locale != lOther$locale) return false;
+    final l$profile = profile;
+    final lOther$profile = other.profile;
+    if (l$profile != lOther$profile) return false;
     final l$username = username;
     final lOther$username = other.username;
     if (l$username != lOther$username) return false;

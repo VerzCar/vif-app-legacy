@@ -4,6 +4,8 @@ import 'package:authentication_repository/authentication_repository.dart';
 
 class UserQueryFailure implements Exception {}
 
+class UpdateUserProfileFailure implements Exception {}
+
 class UserRepository {
   UserRepository({
     required AuthenticationRepository authenticationRepository,
@@ -26,12 +28,14 @@ class UserRepository {
             )
           : Locale.empty;
 
-      final Bio bio = user.bio != null
-          ? Bio(
-              id: user.bio!.id,
-              description: user.bio!.description,
+      final Profile profile = user.profile != null
+          ? Profile(
+              id: user.profile!.id,
+              bio: user.profile!.bio,
+              whyVoteMe: user.profile!.whyVoteMe,
+              imageSrc: user.profile!.imageSrc,
             )
-          : Bio.empty;
+          : Profile.empty;
 
       final Contact contact = user.contact != null
           ? Contact(
@@ -64,12 +68,33 @@ class UserRepository {
         lastName: user.lastName,
         gender: user.gender,
         locale: locale,
-        bio: bio,
+        profile: profile,
         address: address,
         contact: contact,
       );
     } catch (e) {
       throw UserQueryFailure();
+    }
+  }
+
+  Future<Profile> updateUserProfile(ProfileInput profileInput) async {
+    try {
+      final profile = await _userApiClient.updateUserProfile(
+        userApi.ProfileInput(
+          bio: profileInput.bio,
+          whyVoteMe: profileInput.whyVoteMe,
+          imageSrc: profileInput.imageSrc,
+        ),
+      );
+
+      return Profile(
+        id: profile.id,
+        bio: profile.bio,
+        whyVoteMe: profile.whyVoteMe,
+        imageSrc: profile.imageSrc,
+      );
+    } catch (e) {
+      throw UpdateUserProfileFailure();
     }
   }
 }
