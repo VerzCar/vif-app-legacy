@@ -6,7 +6,6 @@ import 'package:user_repository/user_repository.dart';
 import 'package:vote_your_face/presentation/profile/edit/cubit/profile_edit_cubit.dart';
 import 'package:vote_your_face/presentation/profile/widgets/profile_image.dart';
 import 'package:vote_your_face/presentation/profile/widgets/text_block.dart';
-import 'package:vote_your_face/presentation/shared/widgets/button/submit_button.dart';
 import 'package:vote_your_face/presentation/shared/widgets/field/vec_textform_field.dart';
 
 class ProfileEditForm extends StatelessWidget {
@@ -46,8 +45,6 @@ class ProfileEditForm extends StatelessWidget {
           _WhyVoteMeInput(profile.whyVoteMe),
           const Padding(padding: EdgeInsets.all(10)),
           _BioInput(profile.bio),
-          const Padding(padding: EdgeInsets.all(10)),
-          _SignUpButton(),
         ],
       ),
     );
@@ -58,10 +55,7 @@ class _WhyVoteMeInput extends StatelessWidget {
   const _WhyVoteMeInput(this.initialValue);
 
   final String initialValue;
-
-  String generateHelperText(String value) {
-    return 'max. ' + value.length.toString() + '/' + '200';
-  }
+  final int _maxLength = 50;
 
   @override
   Widget build(BuildContext context) {
@@ -78,9 +72,9 @@ class _WhyVoteMeInput extends StatelessWidget {
             errorText: 'cannot update your data.',
             showError: state.whyVoteMe.invalid,
             initialValue: initialValue,
-            helperText: generateHelperText(initialValue),
             minLines: 5,
             maxLines: 30,
+            maxLength: _maxLength,
           );
         },
       ),
@@ -92,10 +86,7 @@ class _BioInput extends StatelessWidget {
   const _BioInput(this.initialValue);
 
   final String initialValue;
-
-  String generateHelperText(String value) {
-    return 'max. ' + value.length.toString() + '/' + '50';
-  }
+  final int _maxLength = 200;
 
   @override
   Widget build(BuildContext context) {
@@ -111,32 +102,12 @@ class _BioInput extends StatelessWidget {
             errorText: 'cannot update your data.',
             showError: state.bio.invalid,
             initialValue: initialValue,
-            helperText: generateHelperText(initialValue),
             minLines: 5,
             maxLines: 30,
+            maxLength: _maxLength,
           );
         },
       ),
-    );
-  }
-}
-
-class _SignUpButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ProfileEditCubit, ProfileEditState>(
-      buildWhen: (previous, current) => previous.status != current.status,
-      builder: (context, state) {
-        return SubmitButton(
-          key: const Key('signUpForm_submitButton'),
-          submitText: 'Sign Up',
-          onPressed: () {
-            context.read<ProfileEditCubit>().formSubmitted();
-          },
-          isDisabled: !state.status.isValidated,
-          isLoading: state.status.isSubmissionInProgress,
-        );
-      },
     );
   }
 }

@@ -16,12 +16,12 @@ class ProfileEditView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const _AppBar(),
-      body: Padding(
-        padding: const EdgeInsets.all(12.0),
-        child: BlocProvider<ProfileEditCubit>(
-          create: (context) => sl<ProfileEditCubit>(),
+    return BlocProvider<ProfileEditCubit>(
+      create: (context) => sl<ProfileEditCubit>(),
+      child: Scaffold(
+        appBar: const _AppBar(),
+        body: Padding(
+          padding: const EdgeInsets.all(12.0),
           child: ProfileEditForm(profile: user.profile),
         ),
       ),
@@ -36,7 +36,6 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
     return AppBar(
       leading: TextButton(
         onPressed: () {
@@ -45,15 +44,29 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
         child: const Text("close"),
       ),
       actions: [
-        TextButton(
-          onPressed: () => {},
-          child: const Text("save"),
-          style: TextButton.styleFrom(primary: theme.colorScheme.secondary),
-        ),
+        _SubmitButton(),
       ],
     );
   }
 
   @override
   Size get preferredSize => const Size.fromHeight(40);
+}
+
+class _SubmitButton extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return BlocBuilder<ProfileEditCubit, ProfileEditState>(
+      buildWhen: (previous, current) => previous.status != current.status,
+      builder: (context, state) {
+        return TextButton(
+          key: const Key('profileEditForm_submitButton'),
+          onPressed: () => context.read<ProfileEditCubit>().formSubmitted(),
+          child: const Text("save"),
+          style: TextButton.styleFrom(primary: theme.colorScheme.secondary),
+        );
+      },
+    );
+  }
 }

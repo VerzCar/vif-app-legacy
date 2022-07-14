@@ -11,6 +11,7 @@ class VecTextFormField extends StatelessWidget {
     this.initialValue = '',
     this.minLines,
     this.maxLines,
+    this.maxLength,
     this.helperText,
     this.obscureText = false,
     this.icon,
@@ -24,6 +25,7 @@ class VecTextFormField extends StatelessWidget {
   final String initialValue;
   final int? minLines;
   final int? maxLines;
+  final int? maxLength;
   final String? helperText;
   final bool obscureText;
   final Icon? icon;
@@ -38,6 +40,7 @@ class VecTextFormField extends StatelessWidget {
       initialValue: initialValue,
       minLines: minLines,
       maxLines: maxLines ?? 1,
+      maxLength: maxLength,
       decoration: InputDecoration(
         focusedBorder: const OutlineInputBorder(),
         border: const OutlineInputBorder(),
