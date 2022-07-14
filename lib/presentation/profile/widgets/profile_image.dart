@@ -5,9 +5,11 @@ import 'package:vote_your_face/presentation/routes/router.dart';
 class ProfileImage extends StatelessWidget {
   const ProfileImage({
     Key? key,
+    required this.imageSrc,
     this.isEditable = false,
   }) : super(key: key);
 
+  final String imageSrc;
   final bool isEditable;
 
   Container imageContainer(Widget? child) {
@@ -23,7 +25,7 @@ class ProfileImage extends StatelessWidget {
 
   Image image() {
     return Image.network(
-      'https://randomuser.me/api/portraits/men/' + 18.toString() + '.jpg',
+      imageSrc,
       fit: BoxFit.fill,
       height: 150,
       width: 150,
@@ -34,8 +36,8 @@ class ProfileImage extends StatelessWidget {
   Widget build(BuildContext context) {
     return imageContainer(
       isEditable
-          ? _ProfileImageEditView(image: image())
-          : _ProfileImageView(image: image()),
+          ? _ProfileImageEditView(image: image(), imageSrc: imageSrc)
+          : _ProfileImageView(image: image(), imageSrc: imageSrc),
     );
   }
 }
@@ -44,15 +46,17 @@ class _ProfileImageView extends StatelessWidget {
   const _ProfileImageView({
     Key? key,
     required this.image,
+    required this.imageSrc,
   }) : super(key: key);
 
   final Image image;
+  final String imageSrc;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(const ProfileImageRoute());
+        context.router.push(ProfileImageRoute(imageSrc: imageSrc));
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
@@ -66,15 +70,17 @@ class _ProfileImageEditView extends StatelessWidget {
   const _ProfileImageEditView({
     Key? key,
     required this.image,
+    required this.imageSrc,
   }) : super(key: key);
 
   final Image image;
+  final String imageSrc;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(const ProfileEditImageRoute());
+        context.router.push(ProfileEditImageRoute(imageSrc: imageSrc));
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),

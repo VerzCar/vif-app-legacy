@@ -1,7 +1,12 @@
 import 'package:flutter/material.dart';
 
 class ProfileImagePage extends StatelessWidget {
-  const ProfileImagePage({Key? key}) : super(key: key);
+  const ProfileImagePage({
+    Key? key,
+    required this.imageSrc,
+  }) : super(key: key);
+
+  final String imageSrc;
 
   @override
   Widget build(BuildContext context) {
@@ -12,7 +17,7 @@ class ProfileImagePage extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         child: Image.network(
-          'https://randomuser.me/api/portraits/men/' + 18.toString() + '.jpg',
+          imageSrc,
           fit: BoxFit.contain,
         ),
       ),

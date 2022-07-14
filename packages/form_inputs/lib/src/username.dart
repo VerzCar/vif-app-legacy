@@ -10,10 +10,8 @@ enum UsernameValidationError {
 /// Form input for an username input.
 /// {@endtemplate}
 class Username extends FormzInput<String, UsernameValidationError> {
-  /// {@macro email}
   const Username.pure() : super.pure('');
-
-  /// {@macro email}
+  
   const Username.dirty([String value = '']) : super.dirty(value);
 
   static final RegExp _usernameRegExp = RegExp(

@@ -88,7 +88,7 @@ class UserApiClient {
       }
 
       final profile = result.parsedData!.updateUser.profile!;
-
+      logger.i(profile.whyVoteMe);
       return Profile(
         id: profile.id,
         bio: profile.bio,

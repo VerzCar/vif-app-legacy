@@ -21,7 +21,7 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     Emitter<UserState> emit,
   ) async {
     try {
-      final user = await _userRepository.user();
+      final user = await _userRepository.getUser();
       emit(UserState.metaDataLoaded(user));
     } catch (_) {
       return null;

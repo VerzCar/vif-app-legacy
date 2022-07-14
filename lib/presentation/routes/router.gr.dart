@@ -62,9 +62,10 @@ class _$AppRouter extends RootStackRouter {
           routeData: routeData, child: const ProfilePage());
     },
     ProfileImageRoute.name: (routeData) {
+      final args = routeData.argsAs<ProfileImageRouteArgs>();
       return CustomPage<dynamic>(
           routeData: routeData,
-          child: const ProfileImagePage(),
+          child: ProfileImagePage(key: args.key, imageSrc: args.imageSrc),
           transitionsBuilder: TransitionsBuilders.slideLeftWithFade,
           durationInMilliseconds: 200,
           opaque: true,
@@ -81,9 +82,10 @@ class _$AppRouter extends RootStackRouter {
           barrierDismissible: false);
     },
     ProfileEditImageRoute.name: (routeData) {
+      final args = routeData.argsAs<ProfileEditImageRouteArgs>();
       return CustomPage<dynamic>(
           routeData: routeData,
-          child: const ProfileEditImagePage(),
+          child: ProfileEditImagePage(key: args.key, imageSrc: args.imageSrc),
           transitionsBuilder: TransitionsBuilders.fadeIn,
           durationInMilliseconds: 200,
           opaque: true,
@@ -216,11 +218,26 @@ class ProfileRoute extends PageRouteInfo<void> {
 
 /// generated route for
 /// [ProfileImagePage]
-class ProfileImageRoute extends PageRouteInfo<void> {
-  const ProfileImageRoute()
-      : super(ProfileImageRoute.name, path: '/profile-image-page');
+class ProfileImageRoute extends PageRouteInfo<ProfileImageRouteArgs> {
+  ProfileImageRoute({Key? key, required String imageSrc})
+      : super(ProfileImageRoute.name,
+            path: '/profile-image-page',
+            args: ProfileImageRouteArgs(key: key, imageSrc: imageSrc));
 
   static const String name = 'ProfileImageRoute';
+}
+
+class ProfileImageRouteArgs {
+  const ProfileImageRouteArgs({this.key, required this.imageSrc});
+
+  final Key? key;
+
+  final String imageSrc;
+
+  @override
+  String toString() {
+    return 'ProfileImageRouteArgs{key: $key, imageSrc: $imageSrc}';
+  }
 }
 
 /// generated route for
@@ -249,11 +266,26 @@ class ProfileEditRouteArgs {
 
 /// generated route for
 /// [ProfileEditImagePage]
-class ProfileEditImageRoute extends PageRouteInfo<void> {
-  const ProfileEditImageRoute()
-      : super(ProfileEditImageRoute.name, path: '/profile-edit-image-page');
+class ProfileEditImageRoute extends PageRouteInfo<ProfileEditImageRouteArgs> {
+  ProfileEditImageRoute({Key? key, required String imageSrc})
+      : super(ProfileEditImageRoute.name,
+            path: '/profile-edit-image-page',
+            args: ProfileEditImageRouteArgs(key: key, imageSrc: imageSrc));
 
   static const String name = 'ProfileEditImageRoute';
+}
+
+class ProfileEditImageRouteArgs {
+  const ProfileEditImageRouteArgs({this.key, required this.imageSrc});
+
+  final Key? key;
+
+  final String imageSrc;
+
+  @override
+  String toString() {
+    return 'ProfileEditImageRouteArgs{key: $key, imageSrc: $imageSrc}';
+  }
 }
 
 /// generated route for

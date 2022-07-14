@@ -3,7 +3,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:vote_your_face/presentation/routes/router.dart';
 
 class ProfileEditImagePage extends StatelessWidget {
-  const ProfileEditImagePage({Key? key}) : super(key: key);
+  const ProfileEditImagePage({
+    Key? key,
+    required this.imageSrc,
+  }) : super(key: key);
+
+  final String imageSrc;
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +20,7 @@ class ProfileEditImagePage extends StatelessWidget {
         height: double.infinity,
         width: double.infinity,
         child: Image.network(
-          'https://randomuser.me/api/portraits/men/' + 18.toString() + '.jpg',
+          imageSrc,
           fit: BoxFit.contain,
         ),
       ),

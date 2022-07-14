@@ -23,19 +23,19 @@ class ProfilePopulated extends StatelessWidget {
           children: [
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                ProfileImage(),
+              children: [
+                ProfileImage(imageSrc: user.profile.imageSrc),
               ],
             ),
             const SizedBox(height: 10),
             TextBlock(
               title: 'Why vote me',
-              block: user.profile.whyVoteMe,
+              textValue: user.profile.whyVoteMe,
             ),
             const SizedBox(height: 20),
             TextBlock(
               title: 'Biographie',
-              block: user.profile.bio,
+              textValue: user.profile.bio,
             ),
           ],
         ),

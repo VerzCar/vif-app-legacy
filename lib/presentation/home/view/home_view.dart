@@ -31,17 +31,20 @@ class HomeView extends StatelessWidget {
             _HomeTabButton(
               groupValue: selectedTab,
               value: HomeTab.circleDetail,
-              icon: const Icon(Icons.list),
+              icon: const Icon(Icons.list_outlined),
+              activeIcon: const Icon(Icons.view_list),
             ),
             _HomeTabButton(
               groupValue: selectedTab,
               value: HomeTab.search,
-              icon: const Icon(Icons.search),
+              icon: const Icon(Icons.person_search_outlined),
+              activeIcon: const Icon(Icons.person_search),
             ),
             _HomeTabButton(
               groupValue: selectedTab,
               value: HomeTab.profile,
-              icon: const Icon(Icons.person),
+              icon: const Icon(Icons.person_outline),
+              activeIcon: const Icon(Icons.person),
             ),
           ],
         ),
@@ -56,20 +59,21 @@ class _HomeTabButton extends StatelessWidget {
     required this.groupValue,
     required this.value,
     required this.icon,
+    required this.activeIcon,
   }) : super(key: key);
 
   final HomeTab groupValue;
   final HomeTab value;
   final Widget icon;
+  final Widget activeIcon;
 
   @override
   Widget build(BuildContext context) {
     return IconButton(
       onPressed: () => context.read<HomeCubit>().setTab(value),
       iconSize: 32,
-      color:
-          groupValue != value ? null : Theme.of(context).colorScheme.secondary,
-      icon: icon,
+      color: Theme.of(context).colorScheme.primary,
+      icon: groupValue != value ? icon : activeIcon,
     );
   }
 }

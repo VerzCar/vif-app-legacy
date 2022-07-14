@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
-import 'package:vote_your_face/presentation/profile/widgets/multiline_textform_field.dart';
-import 'package:vote_your_face/presentation/profile/widgets/profile_image.dart';
+import 'package:vote_your_face/presentation/profile/edit/cubit/profile_edit_cubit.dart';
+import 'package:vote_your_face/presentation/profile/edit/profile_edit_form.dart';
+import 'package:vote_your_face/injection.dart';
 
 class ProfileEditView extends StatelessWidget {
   const ProfileEditView({
@@ -18,28 +20,9 @@ class ProfileEditView extends StatelessWidget {
       appBar: const _AppBar(),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: ListView(
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: const [
-                ProfileImage(
-                  isEditable: true,
-                ),
-              ],
-            ),
-            const SizedBox(height: 10),
-            MultiLineTextFormField(
-              label: 'Why vote me',
-              initialValue: user.profile.whyVoteMe,
-              helperText: 'max. 200',
-            ),
-            const SizedBox(height: 20),
-            MultiLineTextFormField(
-              label: 'Biographie',
-              initialValue: user.profile.bio,
-            ),
-          ],
+        child: BlocProvider<ProfileEditCubit>(
+          create: (context) => sl<ProfileEditCubit>(),
+          child: ProfileEditForm(profile: user.profile),
         ),
       ),
     );

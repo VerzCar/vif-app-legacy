@@ -1,4 +1,4 @@
-part of 'profile_cubit.dart';
+part of 'profile_bloc.dart';
 
 enum ProfileStatus { initial, loading, success, failure }
 
@@ -15,8 +15,8 @@ extension ProfileStatusX on ProfileStatus {
 class ProfileState extends Equatable {
   const ProfileState({
     this.status = ProfileStatus.initial,
-    User? user,
-  }) : user = user ?? User.empty;
+    this.user = User.empty,
+  });
 
   final ProfileStatus status;
   final User user;

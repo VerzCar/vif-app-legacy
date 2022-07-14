@@ -38,6 +38,30 @@ class User extends Equatable {
 
   bool get isEmpty => this == User.empty;
 
+  User copyWith({
+    int? id,
+    String? username,
+    String? firstName,
+    String? lastName,
+    String? gender,
+    Profile? profile,
+    Locale? locale,
+    Address? address,
+    Contact? contact,
+  }) {
+    return User(
+      id: id ?? this.id,
+      username: username ?? this.username,
+      firstName: firstName ?? this.firstName,
+      lastName: lastName ?? this.lastName,
+      gender: gender ?? this.gender,
+      profile: profile ?? this.profile,
+      locale: locale ?? this.locale,
+      address: address ?? this.address,
+      contact: contact ?? this.contact,
+    );
+  }
+
   @override
   List<Object?> get props => [
         id,

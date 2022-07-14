@@ -7,7 +7,8 @@ import 'package:vote_your_face/application/user/bloc/user_bloc.dart';
 import 'package:vote_your_face/presentation/camera/bloc/camera_bloc.dart';
 import 'package:vote_your_face/presentation/circle_detail/bloc/circle_detail_bloc.dart';
 import 'package:vote_your_face/presentation/login/login.dart';
-import 'package:vote_your_face/presentation/profile/cubit/profile_cubit.dart';
+import 'package:vote_your_face/presentation/profile/bloc/profile_bloc.dart';
+import 'package:vote_your_face/presentation/profile/edit/cubit/profile_edit_cubit.dart';
 import 'package:vote_your_face/presentation/sign_up/cubit/sign_up_cubit.dart';
 import 'package:vote_your_face/presentation/verification/cubit/verification_cubit.dart';
 
@@ -21,7 +22,8 @@ Future<void> init() async {
   sl.registerFactory(() => LoginBloc(authenticationRepository: sl()));
   sl.registerFactory(() => SignUpCubit(sl()));
   sl.registerFactory(() => VerificationCubit(sl()));
-  sl.registerFactory(() => ProfileCubit(sl()));
+  sl.registerFactory(() => ProfileBloc(userRepository: sl()));
+  sl.registerFactory(() => ProfileEditCubit(sl()));
   sl.registerFactory(() => CameraBloc());
 
   //! repos

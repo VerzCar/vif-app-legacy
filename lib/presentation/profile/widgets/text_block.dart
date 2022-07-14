@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 class TextBlock extends StatelessWidget {
   const TextBlock({
     Key? key,
-    required this.block,
+    this.textValue,
+    this.block,
     this.title,
   }) : super(key: key);
 
-  final String block;
+  final String? textValue;
+  final Widget? block;
   final String? title;
 
   List<Widget> titleBlock(ThemeData theme) {
@@ -36,10 +38,12 @@ class TextBlock extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         ...titleBlock(theme),
-        Text(
-          block,
-          style: theme.textTheme.bodyMedium,
-        ),
+        textValue != null
+            ? Text(
+                textValue!,
+                style: theme.textTheme.bodyMedium,
+              )
+            : block!,
       ],
     );
   }

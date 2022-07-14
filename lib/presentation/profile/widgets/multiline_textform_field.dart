@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:vote_your_face/presentation/shared.dart';
 
 class MultiLineTextFormField extends StatelessWidget {
   const MultiLineTextFormField({
@@ -12,13 +13,6 @@ class MultiLineTextFormField extends StatelessWidget {
   final String initialValue;
   final String? helperText;
 
-  InputDecoration decoration() {
-    return InputDecoration(
-      border: const OutlineInputBorder(),
-      helperText: helperText,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
@@ -31,12 +25,12 @@ class MultiLineTextFormField extends StatelessWidget {
           style: theme.textTheme.titleLarge,
         ),
         const SizedBox(height: 10),
-        TextFormField(
+        VecTextFormField(
+          onChanged: (value) => {},
           initialValue: initialValue,
-          decoration: decoration(),
           minLines: 5,
           maxLines: 30,
-        )
+        ),
       ],
     );
   }

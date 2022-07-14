@@ -6,8 +6,8 @@ import 'package:vote_your_face/presentation/circle_detail/view/circle_detail_pag
 import 'package:vote_your_face/presentation/home/home.dart';
 import 'package:vote_your_face/presentation/login/login.dart';
 import 'package:vote_your_face/presentation/profile/profile.dart';
-import 'package:vote_your_face/presentation/profile/view/edit/profile_edit_image_page.dart';
-import 'package:vote_your_face/presentation/profile/view/edit/profile_edit_page.dart';
+import 'package:vote_your_face/presentation/profile/edit/profile_edit_image_page.dart';
+import 'package:vote_your_face/presentation/profile/edit/profile_edit_page.dart';
 import 'package:vote_your_face/presentation/ranking_list/ranking_list.dart';
 import 'package:vote_your_face/presentation/search/search.dart';
 import 'package:vote_your_face/presentation/settings/view/settings_page.dart';

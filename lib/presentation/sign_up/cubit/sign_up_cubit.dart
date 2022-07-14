@@ -83,7 +83,6 @@ class SignUpCubit extends Cubit<SignUpState> {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
     try {
-      print(state.username.value);
       final credentials = SignUpCredentials(
         username: state.username.value,
         email: state.email.value,

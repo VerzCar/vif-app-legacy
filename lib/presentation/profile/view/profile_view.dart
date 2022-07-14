@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:vote_your_face/presentation/profile/cubit/profile_cubit.dart';
+import 'package:vote_your_face/presentation/profile/bloc/profile_bloc.dart';
 import 'package:vote_your_face/presentation/profile/view/profile_populated.dart';
 
 
@@ -10,7 +10,7 @@ class ProfileView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: BlocBuilder<ProfileCubit, ProfileState>(
+      child: BlocBuilder<ProfileBloc, ProfileState>(
         builder: (context, state) {
           switch (state.status) {
             case ProfileStatus.initial:

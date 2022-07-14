@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:user_api/user_api.dart' as userApi;
 import 'package:user_repository/user_repository.dart';
 import 'package:authentication_repository/authentication_repository.dart';
@@ -12,11 +14,28 @@ class UserRepository {
     userApi.UserApiClient? userApiClient,
   }) : _userApiClient = userApiClient ??
             userApi.UserApiClient(
-                authenticationRepository: authenticationRepository);
+                authenticationRepository: authenticationRepository) {
+    _user = User.empty;
+  }
 
   final userApi.UserApiClient _userApiClient;
+  final _userController = StreamController<User>();
+  late User _currentUser;
 
-  Future<User> user() async {
+  User get currentUser => _currentUser;
+
+  set currentUser(User user) {
+    _currentUser = user;
+  }
+
+  /// Stream of [User] which will emit the current [User] state
+  Stream<User> get user async* {
+    yield* _userController.stream;
+  }
+
+  void dispose() => _userController.close();
+
+  Future<User> getUser() async {
     try {
       final user = await _userApiClient.fetchUser();
 
@@ -61,7 +80,7 @@ class UserRepository {
             )
           : Address.empty;
 
-      return User(
+      final entityUser = User(
         id: user.id,
         username: user.username,
         firstName: user.firstName,
@@ -72,6 +91,9 @@ class UserRepository {
         address: address,
         contact: contact,
       );
+
+      _user = entityUser;
+      return entityUser;
     } catch (e) {
       throw UserQueryFailure();
     }
@@ -87,14 +109,23 @@ class UserRepository {
         ),
       );
 
-      return Profile(
+      final entityProfile = Profile(
         id: profile.id,
         bio: profile.bio,
         whyVoteMe: profile.whyVoteMe,
         imageSrc: profile.imageSrc,
       );
+
+      final updatedUser = currentUser.copyWith(profile: entityProfile);
+      _user = updatedUser;
+      return entityProfile;
     } catch (e) {
       throw UpdateUserProfileFailure();
     }
+  }
+
+  set _user(User user) {
+    currentUser = user;
+    _userController.add(user);
   }
 }
