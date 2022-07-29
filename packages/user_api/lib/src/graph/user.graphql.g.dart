@@ -20,6 +20,7 @@ Map<String, dynamic> _$Query$userToJson(Query$user instance) =>
 Query$user$user _$Query$user$userFromJson(Map<String, dynamic> json) =>
     Query$user$user(
       id: json['id'] as int,
+      identityId: json['identityId'] as String,
       username: json['username'] as String?,
       firstName: json['firstName'] as String?,
       lastName: json['lastName'] as String?,
@@ -47,6 +48,7 @@ Query$user$user _$Query$user$userFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$Query$user$userToJson(Query$user$user instance) =>
     <String, dynamic>{
       'id': instance.id,
+      'identityId': instance.identityId,
       'username': instance.username,
       'firstName': instance.firstName,
       'lastName': instance.lastName,

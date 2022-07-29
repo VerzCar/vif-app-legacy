@@ -4,6 +4,7 @@ import 'package:user_repository/user_repository.dart';
 class User extends Equatable {
   const User({
     required this.id,
+    required this.identityId,
     required this.username,
     required this.firstName,
     required this.lastName,
@@ -15,6 +16,7 @@ class User extends Equatable {
   });
 
   final int id;
+  final String identityId;
   final String username;
   final String firstName;
   final String lastName;
@@ -26,6 +28,7 @@ class User extends Equatable {
 
   static const empty = User(
     id: 0,
+    identityId: '',
     username: '',
     firstName: '',
     lastName: '',
@@ -40,6 +43,7 @@ class User extends Equatable {
 
   User copyWith({
     int? id,
+    String? identityId,
     String? username,
     String? firstName,
     String? lastName,
@@ -51,6 +55,7 @@ class User extends Equatable {
   }) {
     return User(
       id: id ?? this.id,
+      identityId: identityId ?? this.identityId,
       username: username ?? this.username,
       firstName: firstName ?? this.firstName,
       lastName: lastName ?? this.lastName,
@@ -65,6 +70,7 @@ class User extends Equatable {
   @override
   List<Object?> get props => [
         id,
+        identityId,
         username,
         firstName,
         lastName,

@@ -7,6 +7,7 @@ import 'package:vote_your_face/presentation/profile/edit/cubit/profile_edit_cubi
 import 'package:vote_your_face/presentation/profile/widgets/profile_image.dart';
 import 'package:vote_your_face/presentation/profile/widgets/text_block.dart';
 import 'package:vote_your_face/presentation/shared/widgets/field/vec_textform_field.dart';
+import 'package:vote_your_face/presentation/shared/widgets/image/imagex.dart';
 
 class ProfileEditForm extends StatelessWidget {
   const ProfileEditForm({
@@ -18,25 +19,32 @@ class ProfileEditForm extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<ProfileEditCubit, ProfileEditState>(
-      listener: (context, state) {
-        if (state.status.isSubmissionSuccess) {
-          context.router.pop();
-        } else if (state.status.isSubmissionFailure) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(content: Text(state.errorMessage ?? 'Update failure')),
-            );
-        }
-      },
-      child: ListView(
+    return BlocConsumer<ProfileEditCubit, ProfileEditState>(
+        listener: (context, state) {
+      if (state.status.isSubmissionSuccess) {
+        context.router.pop();
+      } else if (state.status.isSubmissionFailure) {
+        ScaffoldMessenger.of(context)
+          ..hideCurrentSnackBar()
+          ..showSnackBar(
+            SnackBar(content: Text(state.errorMessage ?? 'Update failure')),
+          );
+      }
+    }, builder: (context, state) {
+      return ListView(
         children: [
           Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               ProfileImage(
-                imageSrc: profile.imageSrc,
+                imageX: ImageX(
+                  imageSrc: state.imagePath.isEmpty
+                      ? profile.imageSrc
+                      : state.imagePath,
+                  fit: BoxFit.fill,
+                  width: 150,
+                  height: 150,
+                ),
                 isEditable: true,
               ),
             ],
@@ -46,8 +54,8 @@ class ProfileEditForm extends StatelessWidget {
           const Padding(padding: EdgeInsets.all(10)),
           _BioInput(profile.bio),
         ],
-      ),
-    );
+      );
+    });
   }
 }
 

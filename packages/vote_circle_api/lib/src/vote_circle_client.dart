@@ -14,13 +14,13 @@ class VoteCircleApiClient {
   final AuthenticationRepository _authenticationRepository;
 
   GraphQLClient _client() {
-    // final _httpLink = HttpLink(
-    //   'http://127.0.0.1:8081/query',
-    // );
-
     final _httpLink = HttpLink(
-      'https://vote-circle.dev.vyf.passoavanti.eu/query',
+      'http://127.0.0.1:8081/query',
     );
+
+    // final _httpLink = HttpLink(
+    //   'https://vote-circle.dev.vyf.passoavanti.eu/query',
+    // );
 
     final _authLink = AuthLink(
       getToken: () async => 'Bearer ${_authenticationRepository.accessToken}',

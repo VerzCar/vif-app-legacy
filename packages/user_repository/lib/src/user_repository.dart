@@ -1,12 +1,42 @@
 import 'dart:async';
+import 'dart:io';
+import 'package:uuid/uuid.dart';
 
 import 'package:user_api/user_api.dart' as userApi;
 import 'package:user_repository/user_repository.dart';
 import 'package:authentication_repository/authentication_repository.dart';
+import 'package:dospace/dospace.dart' as dospace;
+import 'package:path/path.dart' as p;
 
 class UserQueryFailure implements Exception {}
 
 class UpdateUserProfileFailure implements Exception {}
+
+class UploadProfileImageFailure implements Exception {}
+
+class DoSpace {
+  static const String region = "fra1";
+  static const String accessKey = "4K4OLVYK76RB4GSVR2Y2";
+  static const String secretKey = "xuo+GwKB73wu2pQXjxHt7XXOCtc7m5g+TNPhkOCGzLY";
+  static const String bucketName = "user";
+  static const String basePath =
+      'https://$bucketName.$region.digitaloceanspaces.com';
+
+  // use only the bucket for the spaces functionality
+  dospace.Spaces get _spaces {
+    return new dospace.Spaces(
+      region: region,
+      accessKey: accessKey,
+      secretKey: secretKey,
+    );
+  }
+
+  dospace.Bucket get bucket {
+    return _spaces.bucket(bucketName);
+  }
+
+  Future<void> dispose() => _spaces.close();
+}
 
 class UserRepository {
   UserRepository({
@@ -21,6 +51,7 @@ class UserRepository {
   final userApi.UserApiClient _userApiClient;
   final _userController = StreamController<User>();
   late User _currentUser;
+  final DoSpace _doSpace = new DoSpace();
 
   User get currentUser => _currentUser;
 
@@ -35,7 +66,7 @@ class UserRepository {
 
   void dispose() => _userController.close();
 
-  Future<User> getUser() async {
+  Future<User> fetchUser() async {
     try {
       final user = await _userApiClient.fetchUser();
 
@@ -82,6 +113,7 @@ class UserRepository {
 
       final entityUser = User(
         id: user.id,
+        identityId: user.identityId,
         username: user.username,
         firstName: user.firstName,
         lastName: user.lastName,
@@ -101,11 +133,17 @@ class UserRepository {
 
   Future<Profile> updateUserProfile(ProfileInput profileInput) async {
     try {
+      String? imageSrc;
+      if (profileInput.imageFilePath != null) {
+        final File imageFile = File(profileInput.imageFilePath!);
+        imageSrc = await _uploadProfileImage(imageFile, currentUser.identityId);
+      }
+
       final profile = await _userApiClient.updateUserProfile(
         userApi.ProfileInput(
           bio: profileInput.bio,
           whyVoteMe: profileInput.whyVoteMe,
-          imageSrc: profileInput.imageSrc,
+          imageSrc: imageSrc,
         ),
       );
 
@@ -120,7 +158,31 @@ class UserRepository {
       _user = updatedUser;
       return entityProfile;
     } catch (e) {
+      print(e);
       throw UpdateUserProfileFailure();
+    }
+  }
+
+  Future<String> _uploadProfileImage(File file, String identityId) async {
+    try {
+      final _extension = p.extension(file.path);
+      final _fileName = 'IMG_${Uuid().v4()}$_extension';
+      final _contentType = 'image/' + _extension.substring(1);
+      final destPath = 'profile/img';
+      final _imageKey = '$identityId/$destPath/$_fileName';
+
+      await _doSpace.bucket.uploadFile(
+        _imageKey,
+        file,
+        _contentType,
+        dospace.Permissions.public,
+      );
+
+      await _doSpace.dispose();
+
+      return '${DoSpace.basePath}/$_imageKey';
+    } catch (e) {
+      throw UploadProfileImageFailure();
     }
   }
 

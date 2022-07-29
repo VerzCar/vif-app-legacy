@@ -26,7 +26,8 @@ Future<void> _initializeApp() async {
 
 Future<void> _configureAmplify() async {
   try {
-    await Amplify.addPlugins([AmplifyAuthCognito()]);
+    final auth = AmplifyAuthCognito();
+    await Amplify.addPlugins([auth]);
     // note that Amplify cannot be configured more than once!
     await Amplify.configure(amplifyconfig);
   } catch (e) {

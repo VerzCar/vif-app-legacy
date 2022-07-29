@@ -1,15 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:vote_your_face/presentation/routes/router.dart';
+import 'package:vote_your_face/presentation/shared/widgets/image/imagex.dart';
 
 class ProfileImage extends StatelessWidget {
   const ProfileImage({
     Key? key,
-    required this.imageSrc,
+    required this.imageX,
     this.isEditable = false,
   }) : super(key: key);
 
-  final String imageSrc;
+  final ImageX imageX;
   final bool isEditable;
 
   Container imageContainer(Widget? child) {
@@ -23,21 +24,12 @@ class ProfileImage extends StatelessWidget {
     );
   }
 
-  Image image() {
-    return Image.network(
-      imageSrc,
-      fit: BoxFit.fill,
-      height: 150,
-      width: 150,
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     return imageContainer(
       isEditable
-          ? _ProfileImageEditView(image: image(), imageSrc: imageSrc)
-          : _ProfileImageView(image: image(), imageSrc: imageSrc),
+          ? _ProfileImageEditView(imageX: imageX)
+          : _ProfileImageView(imageX: imageX),
     );
   }
 }
@@ -45,22 +37,24 @@ class ProfileImage extends StatelessWidget {
 class _ProfileImageView extends StatelessWidget {
   const _ProfileImageView({
     Key? key,
-    required this.image,
-    required this.imageSrc,
+    required this.imageX,
   }) : super(key: key);
 
-  final Image image;
-  final String imageSrc;
+  final ImageX imageX;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(ProfileImageRoute(imageSrc: imageSrc));
+        context.router.push(ProfileImageRoute(
+            imageX: ImageX(
+          imageSrc: imageX.imageSrc,
+          fit: BoxFit.contain,
+        )));
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
-        child: image,
+        child: imageX.image(),
       ),
     );
   }
@@ -69,25 +63,26 @@ class _ProfileImageView extends StatelessWidget {
 class _ProfileImageEditView extends StatelessWidget {
   const _ProfileImageEditView({
     Key? key,
-    required this.image,
-    required this.imageSrc,
+    required this.imageX,
   }) : super(key: key);
 
-  final Image image;
-  final String imageSrc;
+  final ImageX imageX;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.router.push(ProfileEditImageRoute(imageSrc: imageSrc));
+        context.router.push(ProfileEditImageRoute(imageX: ImageX(
+          imageSrc: imageX.imageSrc,
+          fit: BoxFit.contain,
+        )));
       },
       child: ClipRRect(
         borderRadius: BorderRadius.circular(8.0),
         child: Stack(
           alignment: Alignment.bottomRight,
           children: [
-            image,
+            imageX.image(),
             Padding(
               padding: const EdgeInsets.all(3.0),
               child: Container(

@@ -66,6 +66,12 @@ const queryDocumentuser = DocumentNode(definitions: [
                   directives: [],
                   selectionSet: null),
               FieldNode(
+                  name: NameNode(value: 'identityId'),
+                  alias: null,
+                  arguments: [],
+                  directives: [],
+                  selectionSet: null),
+              FieldNode(
                   name: NameNode(value: 'username'),
                   alias: null,
                   arguments: [],
@@ -365,6 +371,7 @@ extension ClientExtension$Query$user on graphql.GraphQLClient {
 class Query$user$user {
   Query$user$user(
       {required this.id,
+      required this.identityId,
       this.username,
       this.firstName,
       this.lastName,
@@ -380,6 +387,8 @@ class Query$user$user {
       _$Query$user$userFromJson(json);
 
   final int id;
+
+  final String identityId;
 
   final String? username;
 
@@ -404,6 +413,7 @@ class Query$user$user {
   Map<String, dynamic> toJson() => _$Query$user$userToJson(this);
   int get hashCode {
     final l$id = id;
+    final l$identityId = identityId;
     final l$username = username;
     final l$firstName = firstName;
     final l$lastName = lastName;
@@ -415,6 +425,7 @@ class Query$user$user {
     final l$$__typename = $__typename;
     return Object.hashAll([
       l$id,
+      l$identityId,
       l$username,
       l$firstName,
       l$lastName,
@@ -435,6 +446,9 @@ class Query$user$user {
     final l$id = id;
     final lOther$id = other.id;
     if (l$id != lOther$id) return false;
+    final l$identityId = identityId;
+    final lOther$identityId = other.identityId;
+    if (l$identityId != lOther$identityId) return false;
     final l$username = username;
     final lOther$username = other.username;
     if (l$username != lOther$username) return false;
@@ -469,6 +483,7 @@ class Query$user$user {
 extension UtilityExtension$Query$user$user on Query$user$user {
   Query$user$user copyWith(
           {int? id,
+          String? identityId,
           String? Function()? username,
           String? Function()? firstName,
           String? Function()? lastName,
@@ -480,6 +495,7 @@ extension UtilityExtension$Query$user$user on Query$user$user {
           String? $__typename}) =>
       Query$user$user(
           id: id == null ? this.id : id,
+          identityId: identityId == null ? this.identityId : identityId,
           username: username == null ? this.username : username(),
           firstName: firstName == null ? this.firstName : firstName(),
           lastName: lastName == null ? this.lastName : lastName(),

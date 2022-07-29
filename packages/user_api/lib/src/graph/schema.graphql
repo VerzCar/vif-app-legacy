@@ -64,6 +64,7 @@ type User {
     firstName: String
     gender: Gender
     id: ID!
+    identityId: String!
     lastName: String
     locale: Locale
     profile: Profile

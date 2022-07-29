@@ -34,10 +34,10 @@ class ProfileInput {
   const ProfileInput({
     this.bio,
     this.whyVoteMe,
-    this.imageSrc,
+    this.imageFilePath,
   });
 
   final String? bio;
   final String? whyVoteMe;
-  final String? imageSrc;
+  final String? imageFilePath;
 }

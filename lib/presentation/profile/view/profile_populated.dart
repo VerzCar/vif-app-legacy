@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:vote_your_face/presentation/profile/widgets/profile_image.dart';
 import 'package:vote_your_face/presentation/profile/widgets/text_block.dart';
 import 'package:vote_your_face/presentation/routes/router.dart';
+import 'package:vote_your_face/presentation/shared/widgets/image/imagex.dart';
 
 class ProfilePopulated extends StatelessWidget {
   const ProfilePopulated({
@@ -24,7 +25,14 @@ class ProfilePopulated extends StatelessWidget {
             Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                ProfileImage(imageSrc: user.profile.imageSrc),
+                ProfileImage(
+                  imageX: ImageX(
+                    imageSrc: user.profile.imageSrc,
+                    fit: BoxFit.fill,
+                    width: 150,
+                    height: 150,
+                  ),
+                ),
               ],
             ),
             const SizedBox(height: 10),

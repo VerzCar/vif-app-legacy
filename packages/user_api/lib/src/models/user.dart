@@ -5,6 +5,7 @@ import 'package:user_api/user_api.dart';
 class User extends Equatable {
   User({
     required this.id,
+    required this.identityId,
     required this.username,
     required this.firstName,
     required this.lastName,
@@ -16,6 +17,7 @@ class User extends Equatable {
   });
 
   final int id;
+  final String identityId;
   final String username;
   final String firstName;
   final String lastName;
@@ -69,6 +71,7 @@ class User extends Equatable {
 
     return User(
       id: queryUser.id,
+      identityId: queryUser.identityId,
       username: queryUser.username ?? '',
       firstName: queryUser.firstName ?? '',
       lastName: queryUser.lastName ?? '',
@@ -83,6 +86,7 @@ class User extends Equatable {
   @override
   List<Object?> get props => [
         id,
+        identityId,
         username,
         firstName,
         lastName,

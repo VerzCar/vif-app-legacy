@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:vote_your_face/presentation/profile/edit/cubit/profile_edit_cubit.dart';
 import 'package:vote_your_face/presentation/profile/edit/profile_edit_form.dart';
-import 'package:vote_your_face/injection.dart';
 
 class ProfileEditView extends StatelessWidget {
   const ProfileEditView({
@@ -16,14 +15,11 @@ class ProfileEditView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<ProfileEditCubit>(
-      create: (context) => sl<ProfileEditCubit>(),
-      child: Scaffold(
-        appBar: const _AppBar(),
-        body: Padding(
-          padding: const EdgeInsets.all(12.0),
-          child: ProfileEditForm(profile: user.profile),
-        ),
+    return Scaffold(
+      appBar: const _AppBar(),
+      body: Padding(
+        padding: const EdgeInsets.all(12.0),
+        child: ProfileEditForm(profile: user.profile),
       ),
     );
   }
@@ -37,11 +33,18 @@ class _AppBar extends StatelessWidget implements PreferredSizeWidget {
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      leading: TextButton(
-        onPressed: () {
-          context.router.pop();
+      leading: BlocBuilder<ProfileEditCubit, ProfileEditState>(
+        buildWhen: (previous, current) => previous.status != current.status,
+        builder: (context, state) {
+          return TextButton(
+            key: const Key('profileEditForm_closeButton'),
+            onPressed: () {
+              context.read<ProfileEditCubit>().stateRecycled();
+              context.router.pop();
+            },
+            child: const Text("close"),
+          );
         },
-        child: const Text("close"),
       ),
       actions: [
         _SubmitButton(),
@@ -63,8 +66,8 @@ class _SubmitButton extends StatelessWidget {
         return TextButton(
           key: const Key('profileEditForm_submitButton'),
           onPressed: () => context.read<ProfileEditCubit>().formSubmitted(),
-          child: const Text("save"),
           style: TextButton.styleFrom(primary: theme.colorScheme.secondary),
+          child: const Text("save"),
         );
       },
     );

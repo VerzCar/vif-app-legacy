@@ -1,5 +1,9 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:user_repository/user_repository.dart';
 import 'package:form_inputs/form_inputs.dart';
 import 'package:formz/formz.dart';
@@ -39,6 +43,19 @@ class ProfileEditCubit extends Cubit<ProfileEditState> {
     );
   }
 
+  void profileImageChanged(String imagePath) {
+    emit(
+      state.copyWith(
+        imagePath: imagePath,
+        status: FormzStatus.valid,
+      ),
+    );
+  }
+
+  void stateRecycled() async {
+    emit(const ProfileEditState());
+  }
+
   Future<void> formSubmitted() async {
     if (!state.status.isValidated) return;
     emit(state.copyWith(status: FormzStatus.submissionInProgress));
@@ -46,6 +63,7 @@ class ProfileEditCubit extends Cubit<ProfileEditState> {
       final profileInput = ProfileInput(
         whyVoteMe: state.whyVoteMe.value.isEmpty ? null : state.whyVoteMe.value,
         bio: state.bio.value.isEmpty ? null : state.bio.value,
+        imageFilePath: state.imagePath.isEmpty ? null : state.imagePath,
       );
 
       await _userRepository.updateUserProfile(profileInput);

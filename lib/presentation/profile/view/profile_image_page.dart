@@ -1,12 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:vote_your_face/presentation/shared/widgets/image/imagex.dart';
 
 class ProfileImagePage extends StatelessWidget {
   const ProfileImagePage({
     Key? key,
-    required this.imageSrc,
+    required this.imageX,
   }) : super(key: key);
 
-  final String imageSrc;
+  final ImageX imageX;
 
   @override
   Widget build(BuildContext context) {
@@ -16,10 +17,7 @@ class ProfileImagePage extends StatelessWidget {
         padding: const EdgeInsets.all(5),
         height: double.infinity,
         width: double.infinity,
-        child: Image.network(
-          imageSrc,
-          fit: BoxFit.contain,
-        ),
+        child: imageX.image(),
       ),
     );
   }

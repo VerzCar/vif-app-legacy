@@ -14,6 +14,7 @@ import 'package:vote_your_face/presentation/settings/view/settings_page.dart';
 import 'package:vote_your_face/presentation/sign_up/view/sign_up_page.dart';
 import 'package:vote_your_face/presentation/splash/splash.dart';
 import 'package:vote_your_face/presentation/verification/view/verification_page.dart';
+import 'package:vote_your_face/presentation/shared/widgets/image/imagex.dart';
 
 part 'router.gr.dart';
 
