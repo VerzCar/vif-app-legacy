@@ -5,6 +5,7 @@ mutation updateUserProfile($userInput: UserUpdateInput!) {
             bio
             whyVoteMe
             imageSrc
+            imagePlaceholderColors
         }
     }
 }

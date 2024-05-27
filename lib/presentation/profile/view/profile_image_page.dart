@@ -14,7 +14,7 @@ class ProfileImagePage extends StatelessWidget {
     return Scaffold(
       appBar: const _AppBar(),
       body: Container(
-        padding: const EdgeInsets.all(5),
+        padding: const EdgeInsets.symmetric(vertical: 5),
         height: double.infinity,
         width: double.infinity,
         child: imageX.image(),

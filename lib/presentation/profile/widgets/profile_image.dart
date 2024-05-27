@@ -49,6 +49,7 @@ class _ProfileImageView extends StatelessWidget {
         context.router.push(ProfileImageRoute(
             imageX: ImageX(
           imageSrc: imageX.imageSrc,
+          imagePlaceholderColors: imageX.imagePlaceholderColors,
           fit: BoxFit.contain,
         )));
       },
@@ -74,6 +75,7 @@ class _ProfileImageEditView extends StatelessWidget {
       onTap: () {
         context.router.push(ProfileEditImageRoute(imageX: ImageX(
           imageSrc: imageX.imageSrc,
+          imagePlaceholderColors: imageX.imagePlaceholderColors,
           fit: BoxFit.contain,
         )));
       },

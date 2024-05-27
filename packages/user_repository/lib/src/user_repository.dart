@@ -84,6 +84,7 @@ class UserRepository {
               bio: user.profile!.bio,
               whyVoteMe: user.profile!.whyVoteMe,
               imageSrc: user.profile!.imageSrc,
+              imagePlaceholderColors: user.profile!.imagePlaceholderColors,
             )
           : Profile.empty;
 
@@ -152,6 +153,7 @@ class UserRepository {
         bio: profile.bio,
         whyVoteMe: profile.whyVoteMe,
         imageSrc: profile.imageSrc,
+        imagePlaceholderColors: profile.imagePlaceholderColors,
       );
 
       final updatedUser = currentUser.copyWith(profile: entityProfile);

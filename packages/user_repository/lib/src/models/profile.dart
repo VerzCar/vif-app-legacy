@@ -1,5 +1,4 @@
 import 'package:equatable/equatable.dart';
-import 'package:user_api/src/graph/updateUserProfile.graphql.dart';
 
 class Profile extends Equatable {
   const Profile({
@@ -7,18 +6,21 @@ class Profile extends Equatable {
     required this.bio,
     required this.whyVoteMe,
     required this.imageSrc,
+    required this.imagePlaceholderColors,
   });
 
   final int id;
   final String bio;
   final String whyVoteMe;
   final String imageSrc;
+  final String imagePlaceholderColors;
 
   static const empty = Profile(
     id: 0,
     bio: '',
     whyVoteMe: '',
     imageSrc: '',
+    imagePlaceholderColors: '',
   );
 
   @override
@@ -27,6 +29,7 @@ class Profile extends Equatable {
         bio,
         whyVoteMe,
         imageSrc,
+        imagePlaceholderColors,
       ];
 }
 

@@ -42,6 +42,7 @@ class User extends Equatable {
             bio: queryUser.profile!.bio,
             whyVoteMe: queryUser.profile!.whyVoteMe,
             imageSrc: queryUser.profile!.imageSrc,
+            imagePlaceholderColors: queryUser.profile!.imagePlaceholderColors,
           )
         : null;
 

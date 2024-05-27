@@ -49,13 +49,14 @@ type Mutation {
 type Profile {
     bio: String!
     id: ID!
+    imagePlaceholderColors: String!
     imageSrc: String!
     whyVoteMe: String!
 }
 
 type Query {
     ping: String!
-    user: User!
+    user(identityId: String): User!
 }
 
 type User {

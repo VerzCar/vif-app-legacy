@@ -94,6 +94,7 @@ class UserApiClient {
         bio: profile.bio,
         whyVoteMe: profile.whyVoteMe,
         imageSrc: profile.imageSrc,
+        imagePlaceholderColors: profile.imagePlaceholderColors,
       );
     } catch (e) {
       logger.e(e);

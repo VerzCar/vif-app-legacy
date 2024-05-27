@@ -26,7 +26,7 @@ class ProfileEditImageView extends StatelessWidget {
             previous.imagePath != current.imagePath,
         builder: (context, state) {
           return Container(
-            padding: const EdgeInsets.all(5),
+            padding: const EdgeInsets.symmetric(vertical: 5),
             height: double.infinity,
             width: double.infinity,
             child: state.imagePath.isEmpty

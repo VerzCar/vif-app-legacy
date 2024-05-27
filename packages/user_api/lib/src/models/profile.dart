@@ -7,12 +7,14 @@ class Profile extends Equatable {
     required this.bio,
     required this.whyVoteMe,
     required this.imageSrc,
+    required this.imagePlaceholderColors,
   });
 
   final int id;
   final String bio;
   final String whyVoteMe;
   final String imageSrc;
+  final String imagePlaceholderColors;
 
   @override
   List<Object> get props => [
@@ -20,6 +22,7 @@ class Profile extends Equatable {
         bio,
         whyVoteMe,
         imageSrc,
+        imagePlaceholderColors,
       ];
 }
 

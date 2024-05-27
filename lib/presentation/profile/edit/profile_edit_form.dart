@@ -41,6 +41,9 @@ class ProfileEditForm extends StatelessWidget {
                   imageSrc: state.imagePath.isEmpty
                       ? profile.imageSrc
                       : state.imagePath,
+                  imagePlaceholderColors: profile.imageSrc.isEmpty
+                      ? profile.imagePlaceholderColors
+                      : null,
                   fit: BoxFit.fill,
                   width: 150,
                   height: 150,

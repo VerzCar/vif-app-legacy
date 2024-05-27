@@ -50,6 +50,19 @@ class Input$AddressInput {
     if (l$postalCode != lOther$postalCode) return false;
     return true;
   }
+
+  Input$AddressInput copyWith(
+          {String? address,
+          String? city,
+          String? countryAlphaCode,
+          String? postalCode}) =>
+      Input$AddressInput(
+          address: address == null ? this.address : address,
+          city: city == null ? this.city : city,
+          countryAlphaCode: countryAlphaCode == null
+              ? this.countryAlphaCode
+              : countryAlphaCode,
+          postalCode: postalCode == null ? this.postalCode : postalCode);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -125,6 +138,26 @@ class Input$ContactInput {
     if (l$web != lOther$web) return false;
     return true;
   }
+
+  Input$ContactInput copyWith(
+          {String? email,
+          String? phoneNumber,
+          String? Function()? phoneNumber2,
+          String? Function()? phoneNumber2CountryAlphaCode,
+          String? phoneNumberCountryAlphaCode,
+          String? Function()? web}) =>
+      Input$ContactInput(
+          email: email == null ? this.email : email,
+          phoneNumber: phoneNumber == null ? this.phoneNumber : phoneNumber,
+          phoneNumber2:
+              phoneNumber2 == null ? this.phoneNumber2 : phoneNumber2(),
+          phoneNumber2CountryAlphaCode: phoneNumber2CountryAlphaCode == null
+              ? this.phoneNumber2CountryAlphaCode
+              : phoneNumber2CountryAlphaCode(),
+          phoneNumberCountryAlphaCode: phoneNumberCountryAlphaCode == null
+              ? this.phoneNumberCountryAlphaCode
+              : phoneNumberCountryAlphaCode,
+          web: web == null ? this.web : web());
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -165,6 +198,15 @@ class Input$ProfileInput {
     if (l$whyVoteMe != lOther$whyVoteMe) return false;
     return true;
   }
+
+  Input$ProfileInput copyWith(
+          {String? Function()? bio,
+          String? Function()? imageSrc,
+          String? Function()? whyVoteMe}) =>
+      Input$ProfileInput(
+          bio: bio == null ? this.bio : bio(),
+          imageSrc: imageSrc == null ? this.imageSrc : imageSrc(),
+          whyVoteMe: whyVoteMe == null ? this.whyVoteMe : whyVoteMe());
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -253,6 +295,25 @@ class Input$UserUpdateInput {
     if (l$username != lOther$username) return false;
     return true;
   }
+
+  Input$UserUpdateInput copyWith(
+          {Input$AddressInput? Function()? address,
+          Input$ContactInput? Function()? contact,
+          String? Function()? firstName,
+          Enum$Gender? Function()? gender,
+          String? Function()? lastName,
+          String? Function()? locale,
+          Input$ProfileInput? Function()? profile,
+          String? Function()? username}) =>
+      Input$UserUpdateInput(
+          address: address == null ? this.address : address(),
+          contact: contact == null ? this.contact : contact(),
+          firstName: firstName == null ? this.firstName : firstName(),
+          gender: gender == null ? this.gender : gender(),
+          lastName: lastName == null ? this.lastName : lastName(),
+          locale: locale == null ? this.locale : locale(),
+          profile: profile == null ? this.profile : profile(),
+          username: username == null ? this.username : username());
 }
 
 enum Enum$Gender {

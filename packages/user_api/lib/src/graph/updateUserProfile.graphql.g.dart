@@ -60,6 +60,7 @@ Mutation$updateUserProfile$updateUser$profile
           bio: json['bio'] as String,
           whyVoteMe: json['whyVoteMe'] as String,
           imageSrc: json['imageSrc'] as String,
+          imagePlaceholderColors: json['imagePlaceholderColors'] as String,
           $__typename: json['__typename'] as String,
         );
 
@@ -70,5 +71,6 @@ Map<String, dynamic> _$Mutation$updateUserProfile$updateUser$profileToJson(
       'bio': instance.bio,
       'whyVoteMe': instance.whyVoteMe,
       'imageSrc': instance.imageSrc,
+      'imagePlaceholderColors': instance.imagePlaceholderColors,
       '__typename': instance.$__typename,
     };

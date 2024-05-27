@@ -74,6 +74,7 @@ Query$user$user$profile _$Query$user$user$profileFromJson(
       bio: json['bio'] as String,
       whyVoteMe: json['whyVoteMe'] as String,
       imageSrc: json['imageSrc'] as String,
+      imagePlaceholderColors: json['imagePlaceholderColors'] as String,
       $__typename: json['__typename'] as String,
     );
 
@@ -84,6 +85,7 @@ Map<String, dynamic> _$Query$user$user$profileToJson(
       'bio': instance.bio,
       'whyVoteMe': instance.whyVoteMe,
       'imageSrc': instance.imageSrc,
+      'imagePlaceholderColors': instance.imagePlaceholderColors,
       '__typename': instance.$__typename,
     };
 

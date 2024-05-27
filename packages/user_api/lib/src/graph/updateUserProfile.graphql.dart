@@ -33,6 +33,11 @@ class Variables$Mutation$updateUserProfile {
     if (l$userInput != lOther$userInput) return false;
     return true;
   }
+
+  Variables$Mutation$updateUserProfile copyWith(
+          {Input$UserUpdateInput? userInput}) =>
+      Variables$Mutation$updateUserProfile(
+          userInput: userInput == null ? this.userInput : userInput);
 }
 
 @JsonSerializable(explicitToJson: true)
@@ -81,7 +86,7 @@ extension UtilityExtension$Mutation$updateUserProfile
           $__typename: $__typename == null ? this.$__typename : $__typename);
 }
 
-const queryDocumentupdateUserProfile = DocumentNode(definitions: [
+const documentNodeMutationupdateUserProfile = DocumentNode(definitions: [
   OperationDefinitionNode(
       type: OperationType.mutation,
       name: NameNode(value: 'updateUserProfile'),
@@ -131,6 +136,12 @@ const queryDocumentupdateUserProfile = DocumentNode(definitions: [
                         selectionSet: null),
                     FieldNode(
                         name: NameNode(value: 'imageSrc'),
+                        alias: null,
+                        arguments: [],
+                        directives: [],
+                        selectionSet: null),
+                    FieldNode(
+                        name: NameNode(value: 'imagePlaceholderColors'),
                         alias: null,
                         arguments: [],
                         directives: [],
@@ -194,7 +205,7 @@ class Options$Mutation$updateUserProfile
                         : _parserFn$Mutation$updateUserProfile(data)),
             update: update,
             onError: onError,
-            document: queryDocumentupdateUserProfile,
+            document: documentNodeMutationupdateUserProfile,
             parserFn: _parserFn$Mutation$updateUserProfile);
 
   final OnMutationCompleted$Mutation$updateUserProfile? onCompletedWithParsed;
@@ -230,7 +241,7 @@ class WatchOptions$Mutation$updateUserProfile
             cacheRereadPolicy: cacheRereadPolicy,
             optimisticResult: optimisticResult,
             context: context,
-            document: queryDocumentupdateUserProfile,
+            document: documentNodeMutationupdateUserProfile,
             pollInterval: pollInterval,
             eagerlyFetchResults: eagerlyFetchResults,
             carryForwardDataOnException: carryForwardDataOnException,
@@ -304,6 +315,7 @@ class Mutation$updateUserProfile$updateUser$profile {
       required this.bio,
       required this.whyVoteMe,
       required this.imageSrc,
+      required this.imagePlaceholderColors,
       required this.$__typename});
 
   @override
@@ -319,6 +331,8 @@ class Mutation$updateUserProfile$updateUser$profile {
 
   final String imageSrc;
 
+  final String imagePlaceholderColors;
+
   @JsonKey(name: '__typename')
   final String $__typename;
 
@@ -329,9 +343,16 @@ class Mutation$updateUserProfile$updateUser$profile {
     final l$bio = bio;
     final l$whyVoteMe = whyVoteMe;
     final l$imageSrc = imageSrc;
+    final l$imagePlaceholderColors = imagePlaceholderColors;
     final l$$__typename = $__typename;
-    return Object.hashAll(
-        [l$id, l$bio, l$whyVoteMe, l$imageSrc, l$$__typename]);
+    return Object.hashAll([
+      l$id,
+      l$bio,
+      l$whyVoteMe,
+      l$imageSrc,
+      l$imagePlaceholderColors,
+      l$$__typename
+    ]);
   }
 
   @override
@@ -351,6 +372,9 @@ class Mutation$updateUserProfile$updateUser$profile {
     final l$imageSrc = imageSrc;
     final lOther$imageSrc = other.imageSrc;
     if (l$imageSrc != lOther$imageSrc) return false;
+    final l$imagePlaceholderColors = imagePlaceholderColors;
+    final lOther$imagePlaceholderColors = other.imagePlaceholderColors;
+    if (l$imagePlaceholderColors != lOther$imagePlaceholderColors) return false;
     final l$$__typename = $__typename;
     final lOther$$__typename = other.$__typename;
     if (l$$__typename != lOther$$__typename) return false;
@@ -365,11 +389,15 @@ extension UtilityExtension$Mutation$updateUserProfile$updateUser$profile
           String? bio,
           String? whyVoteMe,
           String? imageSrc,
+          String? imagePlaceholderColors,
           String? $__typename}) =>
       Mutation$updateUserProfile$updateUser$profile(
           id: id == null ? this.id : id,
           bio: bio == null ? this.bio : bio,
           whyVoteMe: whyVoteMe == null ? this.whyVoteMe : whyVoteMe,
           imageSrc: imageSrc == null ? this.imageSrc : imageSrc,
+          imagePlaceholderColors: imagePlaceholderColors == null
+              ? this.imagePlaceholderColors
+              : imagePlaceholderColors,
           $__typename: $__typename == null ? this.$__typename : $__typename);
 }

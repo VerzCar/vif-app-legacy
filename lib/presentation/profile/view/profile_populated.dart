@@ -28,6 +28,9 @@ class ProfilePopulated extends StatelessWidget {
                 ProfileImage(
                   imageX: ImageX(
                     imageSrc: user.profile.imageSrc,
+                    imagePlaceholderColors: user.profile.imageSrc.isEmpty
+                        ? user.profile.imagePlaceholderColors
+                        : null,
                     fit: BoxFit.fill,
                     width: 150,
                     height: 150,
